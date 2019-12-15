@@ -1,0 +1,362 @@
+<header
+   class="topbar"
+   [attr.data-navbarbg]="options.navbarbg"
+   style=" background: #ffffff;height:60px;position: fixed;width:100%;"
+   >
+   <nav
+      class="navbar navbar-expand-lg navbar-light bg-white navbar-custom border-bottom"
+      style="background: #f5821f !important;height:60px;"
+      >
+      <img
+         alt="img"
+         src="assets/images/ICICI Bank Logo Orange Bg.png"
+         style="width: 173px;
+         height: 39px;"
+         class="img-fluid "
+         />
+      <button
+         class="navbar-toggler"
+         type="button"
+         (click)="toggleNavbar()"
+         style="justify-content: right;"
+         >
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+         class="collapse navbar-collapse pl-20 "
+         [ngClass]="{ show: navbarOpen }"
+         style="padding-left: 70%;"
+         >
+         <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item">
+               <a [routerLink]="['']"
+                  ><span
+                  class="m-10 p-r-20"
+                  style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+                  >Home</span
+                  ></a
+                  >
+            </li> -->
+            <li>
+               <a [routerLink]="['']"
+                  ><span
+                  class="m-10 p-r-20"
+                  style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+                  >Logout</span
+                  ></a
+                  >
+            </li>
+            <!-- <li>
+               <a href="#"><span class="m-10 p-r-20"
+               style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;">Help</span></a>
+               </li> -->
+         </ul>
+      </div>
+   </nav>
+</header>
+<div class="card">
+   <div class="card-body m-t-10 m-r-10">
+      <div>
+         <span style="font-size: 20px;">
+            <div class="row">
+               <div class="col-md-6 col-sm-12">
+                  <strong >Project Name : </strong>{{projectName}}
+               </div>
+               <div class="col-md-6 col-sm-12">
+                  <strong>Client Name : </strong>{{clientName}}
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-6 col-sm-12">
+                  <strong >Version : </strong>{{projectVersion}}
+               </div>
+               <div class="col-md-6 col-sm-12">
+                  <strong>Product Name : </strong>{{productName}}
+               </div>
+            </div>
+         </span>
+      </div>
+   </div>
+</div>
+<!-- Tabset Starts here -->
+<hr color="#f5821f" />
+<ngb-tabset
+   type="pills"
+   class="custom-pills nav-justified mainTabset"
+   #t="ngbTabset"
+   >
+  
+   <!-- <ngb-tab id="uat" title="UAT">
+      <ng-template ngbTabContent>
+         <div class="card-body">
+            <br />
+            <table class="table">
+               <thead class="thead-light">
+                  <tr>
+                     <th scope="col">No.</th>
+                     <th scope="col">DevOps Operations</th>
+                     <th scope="col">Status</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let data of displayActivities; let i = index">
+                     <th scope="row">{{ i + 1 }}</th>
+                     <td>{{ data.activity }}</td>
+                     <td>yes</td>
+                  </tr>
+               </tbody>
+            </table>
+            <br />
+         </div>
+      </ng-template>
+   </ngb-tab> -->
+   <ngb-tab id="production" title="Production">
+      <ng-template ngbTabContent>
+         <div class="card-body m-t-40">
+            <br />
+            <table class="table">
+               <thead class="thead-light">
+                  <tr>
+                     <th scope="col">No.</th>
+                     <th scope="col">Checklist for UAT to production:</th>
+                     <th scope="col">Yes</th>
+                     <th scope="col">No</th>
+                     <th scope="col">Not required</th>
+                     <th scope="col">Remarks</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <!-- <tr *ngFor="let list of displayList; let i = index"> -->
+                    <tr>
+                     <th scope="row">1</th>
+                     <td>Profunds configuration done</td>
+                     <td>
+                        
+                        <input type="radio" name="radios1" value="Yes"  id="radio1" />
+                        <label class="p-l-10" for="radio1">Yes</label>
+                     </td>
+                     <td>
+                        <input type="radio" name="radios1" value="No"  id="radio2" />
+                        <label class="p-l-10" for="radio2">No</label>
+                     </td>
+                     <td>
+                        <input
+                           type="radio"
+                           name="radios1"
+                           value="Not required"
+                           id="radio3"
+                           />
+                        <label class="p-l-10" for="radio3">Not required</label>
+                     </td>
+                     <td>
+                        <input type="text" name="remark" placeholder="Remarks" />
+                     </td>
+                  </tr>
+                  <tr>
+                      <th scope="row">2</th>
+                      <td>IPS configuration done</td>
+                      <td>
+                         <input type="radio" name="radios2" value="Yes"  id="radio4" />
+                         <label class="p-l-10" for="radio4">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios2" value="No"  id="radio5" />
+                         <label class="p-l-10" for="radio5">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios2"
+                            value="Not required"
+                            id="radio6"
+                            />
+                         <label class="p-l-10" for="radio6">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">3</th>
+                      <td>iCore configuration</td>
+                      <td>
+                         <input type="radio" name="radios3" value="Yes"  id="radio7" />
+                         <label class="p-l-10" for="radio7">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios3" value="No"  id="radio8" />
+                         <label class="p-l-10" for="radio8">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios3"
+                            value="Not required"
+                            id="radio9"
+                            />
+                         <label class="p-l-10" for="radio9">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">4</th>
+                      <td>UAT testing completed successfully</td>
+                      <td>
+                         <input type="radio" name="radios4" value="Yes"  id="radio10" />
+                         <label class="p-l-10" for="radio10">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios4" value="No"  id="radio11" />
+                         <label class="p-l-10" for="radio11">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios4"
+                            value="Not required"
+                            id="radio12"
+                            />
+                         <label class="p-l-10" for="radio12">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">5</th>
+                      <td>All necessary details provided are correct</td>
+                      <td>
+                         <input type="radio" name="radios5" value="Yes"  id="radio13" />
+                         <label class="p-l-10" for="radio13">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios5" value="No"  id="radio14" />
+                         <label class="p-l-10" for="radio14">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios5"
+                            value="Not required"
+                            id="radio15"
+                            />
+                         <label class="p-l-10" for="radio15">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">6</th>
+                      <td>Tag mapping done correctly</td>
+                      <td>
+                         <input type="radio" name="radios6" value="Yes"  id="radio16" />
+                         <label class="p-l-10" for="radio16">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios6" value="No"  id="radio117" />
+                         <label class="p-l-10" for="radio17">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios6"
+                            value="Not required"
+                            id="radio18"
+                            />
+                         <label class="p-l-10" for="radio18">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">7</th>
+                      <td>Live port opening</td>
+                      <td>
+                         <input type="radio" name="radios7" value="Yes"  id="radio19" />
+                         <label class="p-l-10" for="radio19">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios7" value="No"  id="radio20" />
+                         <label class="p-l-10" for="radio20">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios7"
+                            value="Not required"
+                            id="radio21"
+                            />
+                         <label class="p-l-10" for="radio21">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">8</th>
+                      <td>IP whitelisting</td>
+                      <td>
+                         <input type="radio" name="radios8" value="Yes"  id="radio22" />
+                         <label class="p-l-10" for="radio22">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios8" value="No"  id="radio23" />
+                         <label class="p-l-10" for="radio23">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios8"
+                            value="Not required"
+                            id="radio24"
+                            />
+                         <label class="p-l-10" for="radio24">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+                   <tr>
+                      <th scope="row">9</th>
+                      <td>Legal documentation completed</td>
+                      <td>
+                         <input type="radio" name="radios9" value="Yes"  id="radio25" />
+                         <label class="p-l-10" for="radio25">Yes</label>
+                      </td>
+                      <td>
+                         <input type="radio" name="radios9" value="No"  id="radio26" />
+                         <label class="p-l-10" for="radio26">No</label>
+                      </td>
+                      <td>
+                         <input
+                            type="radio"
+                            name="radios9"
+                            value="Not required"
+                            id="radio27"
+                            />
+                         <label class="p-l-10" for="radio27">Not required</label>
+                      </td>
+                      <td>
+                         <input type="text" name="remark" placeholder="Remarks" />
+                      </td>
+                   </tr>
+               </tbody>
+            </table>
+            <br />
+            <div class="col-md-4">
+               <button
+                  class="btn "
+                  style="color:#ffffff;background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                  (click)="submitProductionDetails()"
+                  >
+               <span>Approve</span>
+               </button>
+            </div>
+         </div>
+      </ng-template>
+   </ngb-tab>
+</ngb-tabset>

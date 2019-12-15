@@ -1,0 +1,1236 @@
+<header class="topbar" [attr.data-navbarbg]="options.navbarbg" style="  background: #ffffff;height:60px;position: fixed;width:100%;">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white navbar-custom border-bottom"
+    style="background: #f5821f !important;height:60px;">
+    <img alt="img" src="assets/images/ICICI Bank Logo Orange Bg.png" style="width: 173px;
+          height: 39px;" class="img-fluid " />
+
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" style="justify-content: right;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse pl-20 " [ngClass]="{ show: navbarOpen }" style="padding-left: 55%;">
+      <ul class="navbar-nav mr-auto">
+
+        <!-- <li class="nav-item">
+          <a (click)="goToCreateApp()"><span class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;">Create
+              App</span></a>
+        </li> -->
+        <li>
+          <a [routerLink]="['/change-password/changePassword']"><span class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;">Change
+              Password</span></a>
+        </li>
+        <li>
+          <a [routerLink]="['']"><span class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;">Logout</span></a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+</header>
+<div class="card">
+  <div class="card-body m-t-30">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <button type="button" class="btn headerButton" (click)="goToOverView();"
+              style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;">Go To
+              OverView</button>
+
+            <ngb-tabset (tabChange)="fetchTabChange($event)" [(activeId)]="activeTabName" type="pills"
+              class="custom-pills profileTabset border-bottom" #tabRef="ngbTabset">
+              <!-- <ngb-tab class="profileTabs" title="Overview">
+                         <ng-template ngbTabContent>
+                            <div class="row" *ngFor="let app of getAppResponse; let i=index;">
+                               <table class="table table-striped table-responsive-md btn-table">
+                                  <thead>
+                                     <tr>
+                                        <th><strong>Sr.</strong></th>
+                                        <th><strong>App Name</strong></th>
+                                        <th><strong>App Version</strong></th>
+                                        <th><strong>Action Due</strong></th>
+                                        <th><strong>Lifecycle Status</strong></th>
+                                     </tr>
+                                  </thead>
+                                  <tbody>
+                                     <tr>
+                                        <th scope="row">{{i + 1}}</th>
+                                        <td (click)="tabRef.select('tab2')">
+                                           {{app.projectName}} 
+                                           <span class="badge badge-primary">View</span>
+                                        </td>
+                                        <td>{{app.version}}</td>
+                                        <td>{{app.status}}</td>
+                                        <td></td>
+                                     </tr>
+                                  </tbody>
+                               </table>
+                            </div>
+                            
+                         </ng-template>
+                      </ngb-tab> -->
+
+              <ngb-tab class="profileTabs" title="My Apps" id="tab2">
+                <ng-template ngbTabContent>
+                  <!-- Tabset ends here -->
+                  <!-- <hr color="#f5821f" /> -->
+                  <div class="row">
+                    <p style="margin-left: 30px;font-size: 40px;">Application Status</p>
+                    <div class="col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <ul class="timeline timeline-left">
+                            <li class="timeline-inverted timeline-item" *ngFor="
+                                              let activity of timeLineFinalArray;
+                                              let i = index
+                                              ">
+                              <!-- <div class="timeline-badge success"> -->
+                              <div class="timeline-badge success">
+                                <i class="fa fa-thumbs-up" style="font-size:36px;color:green"></i>
+
+                                <!-- <i class="fas fa-thumbs-up"></i> -->
+                              </div>
+                              <!-- </div> -->
+                              <div class="timeline-panel" style="background-color: #f1f1f1;">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">
+                                    {{ activity.status }}
+                                  </h4>
+                                </div>
+                                <div class="timeline-body">
+                                  <p>{{ activity.timeStamp }}</p>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                          <!-- <div class="row" (click)="increaseShow()">
+                            <button class="btn pageButtons m-10 w-100" type="button">
+                              <span>View More Activity</span>
+                            </button>
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab class="profileTabs" title="Api Specifications" id="tab3">
+                <ng-template ngbTabContent>
+                  <app-user-app-details></app-user-app-details>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab class="profileTabs" title="Mapping" id="tab4">
+                <ng-template ngbTabContent *ngIf="serviceNameOfUser === 'ECollection Intimation'">
+                  <app-mapping (someEvent)="nextTab($event)"></app-mapping>
+                </ng-template>
+                <ng-template ngbTabContent *ngIf="serviceNameOfUser === 'ECollection with Remitter Validation'">
+                  <app-mapping2></app-mapping2>
+                </ng-template>
+                <!-- <ng-template ngbTabContent
+                   *ngIf="serviceNameOfUser === 'ECollection with Remitter Validation in Intermediary Account'">
+                   <app-mapping3></app-mapping3>
+                 </ng-template> -->
+                <ng-template ngbTabContent
+                  *ngIf="serviceNameOfUser === 'ECollection with Remitter Validation in Intermediary Account' && enableTransactionReversalFileProcessing == false">
+                  <app-mapping3></app-mapping3>
+                </ng-template>
+                <ng-template ngbTabContent
+                  *ngIf="serviceNameOfUser === 'ECollection with Remitter Validation in Intermediary Account' && enableTransactionReversalFileProcessing == true">
+                  <app-mapping5></app-mapping5>
+                </ng-template>
+                <ng-template ngbTabContent
+                  *ngIf="serviceNameOfUser === 'ECollection with Two Level Validation at Bank and Client’s End'">
+                  <app-mapping4></app-mapping4>
+                </ng-template>
+                <ng-template ngbTabContent
+                  *ngIf="serviceNameOfUser === 'iSurePay-Real Time Cheque and Cash Collection Validation'">
+                  <app-isure-pay-mapping></app-isure-pay-mapping>
+                </ng-template>
+                <ng-template ngbTabContent
+                  *ngIf="serviceNameOfUser === 'iSurePay-Real Time Cheque and Cash Collection Two Level Validation at Client and Bank’s End'">
+                  <app-isurepay-mapping2></app-isurepay-mapping2>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab id="testing" [disabled]="testingTab" class="profileTabs" title="Testing">
+                <ng-template ngbTabContent>
+                  <app-app-status></app-app-status>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab class="profileTabs" title="Go Live" id="tab6">
+                <!-- <ngb-tab id="production" title="Production"> -->
+                <ng-template ngbTabContent>
+                  <div class="card-body">
+                    <div class="col-md-4">
+                      <button class="btn " [disabled]="showButton"
+                        style="color:#ffffff;background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                        (click)="initiateProd(contentForProd)">
+                        <span>Ready For Production</span>
+                      </button>
+                    </div>
+                    <br />
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">No.</th>
+                          <th scope="col">DevOps Operations</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of displayActivities; let i = index">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{ data.activity }}</td>
+                          <td *ngIf="initiateUATFlag == 'false'">NOT STARTED</td>
+                          <td *ngIf="initiateUATFlag == 'true'">IN PROCESS</td>
+                          <!-- <td *ngIf="initiateUATFlag == 'true' && data.activity=='code_checked_out SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='application_deployment_unit_created SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='pplication_deployment_unit_configuration_updated SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='application_proxy_deployed SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='application_deployed SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='test_Data_Prepared SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='Test_Data_Deployed SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='running_Tests SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='test_Run_Completed SUCCESS'">SUCCESS</td>
+                   <td *ngIf="initiateUATFlag == 'true' && data.activity=='recording_Test_Results SUCCESS'">SUCCESS</td> -->
+                          <!-- <ng-template #failed><td >IN PROCESS</td></ng-template> -->
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br />
+                  </div>
+                </ng-template>
+              </ngb-tab>
+
+              <ng-template #contentForProd let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Production Data</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="col-md-12">
+                    <div class="card">
+                      <!-- eCollection Data -->
+                      <div class="card-body" *ngIf="summaryServiceName != 'iSurePay-Real Time Cheque and Cash Collection Validation' && summaryServiceName != 'iSurePay-Real Time Cheque and Cash Collection Two Level Validation at Client and Bank’s End'">
+                        <form class="form-horizontal form-material" [formGroup]="updateProductionData"
+                          (ngSubmit)="productionDetails(updateProductionData.value)">
+                          <!-- <ngb-accordion #acc="ngbAccordion"> -->
+                          <!-- <ngb-panel title="Prod Details"> -->
+                          <!-- <ng-template ngbPanelContent> -->
+                          <div class="border border-secondary">
+                            <br />
+                            <div style="margin:1%">
+                              <div class="col-md-6 col-xs-6">
+                                <p class="title"
+                                  style="color: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;">
+                                  Prod Details
+                                </p>
+                              </div>
+                            </div>
+                            <div style="margin:1%" class="row">
+                              <div class="col-md-6 col-xs-6 ">
+                                <i style="color:red">&nbsp;</i>
+                                <input type="text" placeholder="Host Name"
+                                  class="inputField form-control form-control-line"
+                                  [formControl]="updateProductionData.controls['hostNameProd']"
+                                  formControlName="hostNameProd" />
+                                <br />
+                                <!-- <div>
+                                                        <p
+                                                          class="error"
+                                                          *ngIf="
+                                                            addRegisterData
+                                                              .get('hostNameProd')
+                                                              .hasError('required') &&
+                                                            addRegisterData.get('hostNameProd').touched
+                                                          "
+                                                        >
+                                                          <span
+                                                            class="glyphicon glyphicon-alert"
+                                                          ></span>Please enter Host Name
+                                                        </p>
+                                                      </div>
+                                                      <div>
+                                                        <p
+                                                          class="error"
+                                                          *ngIf="
+                                                            addRegisterData
+                                                              .get('hostNameProd')
+                                                              .hasError('pattern')
+                                                          "
+                                                        >
+                                                          <span class="glyphicon glyphicon-alert"></span
+                                                          >Please Enter Valid Host Name
+                                                        </p>
+                                                      </div> -->
+                              </div>
+                              <div class="col-md-6 col-xs-6 input-group" style="padding-top:3%;">
+                                <input type="text" placeholder="Production IP"
+                                  class="inputField form-control form-control-line"
+                                  [formControl]="updateProductionData.controls['prodIp']" formControlName="prodIp" />
+                                <br>
+                                <!-- <div>
+                                               <div>
+                                                     <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('prodIp')
+                                                           .hasError('required') &&
+                                                         addRegisterData.get('prodIp').touched
+                                                       "
+                                                     >
+                                                       <span
+                                                         class="glyphicon glyphicon-alert"
+                                                       ></span>Please enter Product IP
+                                                     </p>
+                                                   </div>
+                                                   <div>
+                                                     <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('prodIp')
+                                                           .hasError('pattern')
+                                                       "
+                                                     >
+                                                       <span class="glyphicon glyphicon-alert"></span
+                                                       >Please Enter Valid Product IP
+                                                     </p>
+                                                   </div>
+                                               </div> -->
+
+                              </div>
+
+                              <div>
+                              </div>
+                            </div>
+                            <div style="margin:1%" class="row">
+                              <div class="col-md-6 col-xs-6 ">
+                                <input type="text" placeholder="Production Port"
+                                  class="inputField form-control form-control-line"
+                                  [formControl]="updateProductionData.controls['prodPort']"
+                                  formControlName="prodPort" />
+                                <!-- <div>
+                                                           <p
+                                                             class="error"
+                                                             *ngIf="
+                                                               addRegisterData
+                                                                 .get('prodPort')
+                                                                 .hasError('required') &&
+                                                               addRegisterData.get('prodPort').touched
+                                                             "
+                                                           >
+                                                             <span
+                                                               class="glyphicon glyphicon-alert"
+                                                             ></span>Please enter Production Port
+                                                           </p>
+                                                         </div>
+                                                         <div>
+                                                           <p
+                                                             class="error"
+                                                             *ngIf="
+                                                               addRegisterData
+                                                                 .get('prodPort')
+                                                                 .hasError('pattern')
+                                                             "
+                                                           >
+                                                             <span class="glyphicon glyphicon-alert"></span
+                                                             >Please Enter Valid Production Port
+                                                           </p>
+                                                         </div> -->
+
+                              </div>
+                              <div class="col-md-6 col-xs-6 ">
+                                <h6 class="secondary-text" style="color:grey">
+                                  Note:Preferred port is 443. The series of Port from 8050
+                                  to 8150 are not available at bank’s end for white listing
+                                </h6>
+                              </div>
+                            </div>
+                            <div style="margin:1%" class="row">
+                              <div class="col-md-6 col-xs-6">
+                                <select placeholder="Select HTTP Method Type"
+                                  class="inputField form-control form-control-line browser-default custom-select"
+                                  (change)="methodType($event.target.value)">
+                                  <option disabled value="">Select Communication Protocol</option>
+                                  <option *ngFor="let data of communicationProtocolArray" value="{{ data.value }}">
+                                    {{ data.value }}
+                                  </option>
+                                </select>
+
+                              </div>
+                              <div class="input-group col-md-6 col-xs-6">
+                                <input type="text" placeholder="Https certificate"
+                                  class="inputField form-control form-control-line" disabled
+                                  [formControl]="updateProductionData.controls['httpCertificate']"
+                                  formControlName="httpCertificate"
+                                  />
+                                <span class="input-group-btn">
+                                  <button [disabled]="disableInput" class="btn " (click)="httpsProdUpload1()"
+                                    style="width:100%; background-color: #053c6d; color: #ffffff" type="button">
+                                    Browse
+                                  </button>
+                                  <input type="file" id="httpsProdUpload1" (change)="httpsUpload1Uploaded($event)"
+                                    style="display:none" />
+                                </span>
+                              </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div style="margin:2%">
+                              <ngb-tabset class="nav-justified serviceDetailsTabs" style="padding: 0px !important;">
+                                <ngb-tab>
+                                  <ng-template ngbTabTitle>File</ng-template>
+                                  <ng-template ngbTabContent>
+                                      <br />
+                                      <div class="input-group">
+                                         <div class="col-md-6">
+                                            <input type="text" placeholder="Service Timeout" class="inputField form-control form-control-line"
+                                            [formControl]="updateProductionData.controls['serviceTimeOutProd1']"
+                                            formControlName="serviceTimeOutProd1" >
+                                            <!-- <div>
+                                               <p
+                                                 class="error"
+                                                 *ngIf="
+                                                   addRegisterData
+                                                     .get('serviceTimeOutProd')
+                                                     .hasError('required') &&
+                                                   addRegisterData.get('serviceTimeOutProd').touched
+                                                 "
+                                               >
+                                                 <span
+                                                   class="glyphicon glyphicon-alert"
+                                                 ></span>Please enter Timeout
+                                               </p>
+                                             </div>
+                                             <div>
+                                               <p
+                                                 class="error"
+                                                 *ngIf="
+                                                   addRegisterData
+                                                     .get('serviceTimeOutProd')
+                                                     .hasError('pattern')
+                                                 "
+                                               >
+                                                 <span class="glyphicon glyphicon-alert"></span
+                                                 >Please Enter Valid Timeout
+                                               </p>
+                                             </div> -->
+                                         </div>
+                                         <div  class="col-md-6">
+                                            <!-- abvalidation -->
+                                            <input type="text" placeholder="Service URL" class="inputField form-control form-control-line"
+                                            [formControl]="updateProductionData.controls['serviceUrlProd1']"
+                                            formControlName="serviceUrlProd1">
+                                            <!-- <div>
+                                                  <p
+                                                    class="error"
+                                                    *ngIf="
+                                                      addRegisterData
+                                                        .get('serviceURLProd')
+                                                        .hasError('required') &&
+                                                      addRegisterData.get('serviceURLProd').touched
+                                                    "
+                                                  >
+                                                    <span
+                                                      class="glyphicon glyphicon-alert"
+                                                    ></span>Please enter Url
+                                                  </p>
+                                                </div>
+                                                <div>
+                                                  <p
+                                                    class="error"
+                                                    *ngIf="
+                                                      addRegisterData
+                                                        .get('serviceURLProd')
+                                                        .hasError('pattern')
+                                                    "
+                                                  >
+                                                    <span class="glyphicon glyphicon-alert"></span
+                                                    >Please Enter Valid URL
+                                                  </p>
+                                                </div> -->
+                                         </div>
+                                        
+                                      </div>
+                                      <br>
+                                      
+                                      <div 
+                                         *ngIf="
+                                         summaryServiceName !=
+                                         'ECollection with Two Level Validation at Bank and Client’s End'
+                                         "
+                                         >
+                                         <!-- abvalidation -->
+                                         <div class="input-group">
+                                            <div class="col-md-6 ">
+                                               <input type="text" placeholder="Service Name" class="inputField form-control form-control-line"
+                                               [formControl]="updateProductionData.controls['serviceNameProd1']"
+                                            formControlName="serviceNameProd1" >
+                                               <!-- <div>
+                                                     <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('serviceNameInputProd')
+                                                           .hasError('required') &&
+                                                         addRegisterData.get('serviceNameInputProd').touched
+                                                       "
+                                                     >
+                                                       <span
+                                                         class="glyphicon glyphicon-alert"
+                                                       ></span>Please enter Account no
+                                                     </p>
+                                                   </div>
+                                                   <div> -->
+                                                     <!-- <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('serviceNameInputProd')
+                                                           .hasError('pattern')
+                                                       "
+                                                     >
+                                                       <span class="glyphicon glyphicon-alert"></span
+                                                       >Please Enter Valid Name
+                                                     </p> -->
+                                                   </div>
+                                           
+                                            <!-- abvalidation -->
+                                            <div class="col-md-6 input-group " >
+                                               <input
+                                                  type="text"
+                                                  
+                                                  placeholder="No File Uploaded"
+                                                  class="inputField form-control form-control-line"
+                                                  [formControl]="updateProductionData.controls['prodFile1']"
+                                            formControlName="prodFile1"
+                                                  />
+                                               <span class="input-group-btn">
+                                               <button
+                                                  class="btn "
+                                                  (click)="prodUpload1()"
+                                                  style="width:100%; background-color: #053c6d; color: #ffffff"
+                                                  type="button"
+                                                  >
+                                               Browse
+                                               </button>
+                                               <input
+                                                  type="file"
+                                                  accept=".wsdl , .yaml"
+                                                  id="prodUpload1"
+                                                  (change)="
+                                                  prodUpload1Uploaded($event)
+                                                  "
+                                                  style="display:none"
+                                                  />
+                                               </span>
+                                            <!-- </div> -->
+                                         </div>
+                                         </div>
+                                      </div>
+                                      <br>
+                                      <div
+                                         *ngIf="
+                                         summaryServiceName ==
+                                         'ECollection with Two Level Validation at Bank and Client’s End'
+                                         "
+                                         >
+                                         <!-- abvalidation -->
+                                         <div class="input-group">
+                                            <div class="col-md-6 ">
+                                               <input type="text" placeholder="Service Name" class="inputField form-control form-control-line"
+                                               [formControl]="updateProductionData.controls['serviceNameProd1']"
+                                            formControlName="serviceNameProd1" >
+                                               <!-- <div>
+                                                     <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('serviceNameInputProd')
+                                                           .hasError('required') &&
+                                                         addRegisterData.get('serviceNameInputProd').touched
+                                                       "
+                                                     >
+                                                       <span
+                                                         class="glyphicon glyphicon-alert"
+                                                       ></span>Please enter Account no
+                                                     </p>
+                                                   </div>
+                                                   <div> -->
+                                                     <!-- <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('serviceNameInputProd')
+                                                           .hasError('pattern')
+                                                       "
+                                                     >
+                                                       <span class="glyphicon glyphicon-alert"></span
+                                                       >Please Enter Valid Name
+                                                     </p>
+                                                   </div> -->
+                                            </div>
+                                            <div class="col-md-6 input-group">
+                                               <input
+                                                  type="text"
+                                                  placeholder="Confirmation Spec"
+                                                  class="inputField form-control form-control-line"
+                                                  [formControl]="updateProductionData.controls['prodFile1']"
+                                                  formControlName="prodFile1"
+                                                  />
+                                               <span class="input-group-btn">
+                                               <button
+                                                  class="btn "
+                                                  (click)="prodUpload1()"
+                                                  style="width:100%; background-color: #053c6d; color: #ffffff"
+                                                  type="button"
+                                                  >
+                                               Upload
+                                               </button>
+                                               <!-- abvalidation -->
+                                               <input
+                                                  type="file"
+                                                  accept=".yaml , .wsdl"
+                                                  id="prodUpload1"
+                                                  (change)="
+                                                  prodUpload1Uploaded($event)
+                                                  "
+                                                  style="display:none"
+                                                  />
+                                               </span>
+                                            </div>
+                                       </div>
+                                      </div>
+                                      <br>
+                                      <div
+                                         *ngIf="
+                                         summaryServiceName ==
+                                         'ECollection with Two Level Validation at Bank and Client’s End'
+                                         "
+                                         >
+                                         <!-- abvalidation -->
+                                         <div class="input-group">
+                                           <div class="col-md-6">
+                                              <input type="text" placeholder="Service Timeout" class="inputField form-control form-control-line"
+                                              [formControl]="updateProductionData.controls['serviceTimeOutProd2']"
+                                              formControlName="serviceTimeOutProd2"   >
+                                              <!-- <div>
+                                                 <p
+                                                   class="error"
+                                                   *ngIf="
+                                                     addRegisterData
+                                                       .get('serviceTimeOutProd2')
+                                                       .hasError('required') &&
+                                                     addRegisterData.get('serviceTimeOutProd2').touched
+                                                   "
+                                                 >
+                                                   <span
+                                                     class="glyphicon glyphicon-alert"
+                                                   ></span>Please enter Timeout
+                                                 </p>
+                                               </div>
+                                               <div>
+                                                 <p
+                                                   class="error"
+                                                   *ngIf="
+                                                     addRegisterData
+                                                       .get('serviceTimeOutProd2')
+                                                       .hasError('pattern')
+                                                   " 
+                                                 >
+                                                   <span class="glyphicon glyphicon-alert"></span
+                                                   >Please Enter Valid Timeout
+                                                 </p>
+                                               </div> -->
+                                           </div>
+                                           <div  class="col-md-6">
+                                              <!-- abvalidation -->
+                                              <input type="text" placeholder="Service URL" class="inputField form-control form-control-line"
+                                              [formControl]="updateProductionData.controls['serviceUrlProd2']"
+                                              formControlName="serviceUrlProd2">
+                                              <!-- <div>
+                                                    <p
+                                                      class="error"
+                                                      *ngIf="
+                                                        addRegisterData
+                                                          .get('serviceURLProd2')
+                                                          .hasError('required') &&
+                                                        addRegisterData.get('serviceURLProd2').touched
+                                                      "
+                                                    >
+                                                      <span
+                                                        class="glyphicon glyphicon-alert"
+                                                      ></span>Please enter Url
+                                                    </p>
+                                                  </div>
+                                                  <div>
+                                                    <p
+                                                      class="error"
+                                                      *ngIf="
+                                                        addRegisterData
+                                                          .get('serviceURLProd')
+                                                          .hasError('pattern')
+                                                      "
+                                                    >
+                                                      <span class="glyphicon glyphicon-alert"></span
+                                                      >Please Enter Valid URL
+                                                    </p>
+                                                  </div> -->
+                                           </div>
+                                          
+                                        </div>
+                                        <br>
+                                         <div class="input-group">
+                                            <div class="col-md-6 ">
+                                               <input type="text" placeholder="Service Name" class="inputField form-control form-control-line"
+                                               [formControl]="updateProductionData.controls['serviceNameProd2']"
+                                               formControlName="serviceNameProd2">
+                                               <!-- <div>
+                                                     <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('serviceNameInputProd2')
+                                                           .hasError('required') &&
+                                                         addRegisterData.get('serviceNameInputProd2').touched
+                                                       "
+                                                     >
+                                                       <span
+                                                         class="glyphicon glyphicon-alert"
+                                                       ></span>Please enter Account no
+                                                     </p>
+                                                   </div>
+                                                   <div> -->
+                                                     <!-- <p
+                                                       class="error"
+                                                       *ngIf="
+                                                         addRegisterData
+                                                           .get('serviceNameInputProd2')
+                                                           .hasError('pattern')
+                                                       "
+                                                     >
+                                                       <span class="glyphicon glyphicon-alert"></span
+                                                       >Please Enter Valid Name
+                                                     </p>
+                                                   </div> -->
+                                            </div>
+                                            <div class="col-md-6 input-group">
+                                               <input
+                                                  type="text"
+                                                  placeholder="Verification Spec"
+                                                  class="inputField form-control form-control-line"
+                                                  [formControl]="updateProductionData.controls['prodFile2']"
+                                                  formControlName="prodFile2"
+                                                  />
+                                               <span class="input-group-btn">
+                                               <button
+                                                  class="btn "
+                                                  (click)="prodUpload2()"
+                                                  style="width:100%; background-color: #053c6d; color: #ffffff"
+                                                  type="button"
+                                                  >
+                                               Upload
+                                               </button>
+                                               <!-- abvalidation -->
+                                               <input
+                                                  type="file"
+                                                  accept=".wsdl , .yaml"
+                                                  id="prodUpload2"
+                                                  (change)="
+                                                  prodUpload2Uploaded($event)
+                                                  "
+                                                  style="display:none"
+                                                  />
+                                               </span>
+                                            </div>
+                                         </div>
+                                      </div>
+                                      <br />
+                                      <div class="form-group row">
+                                          <div class="col-md-6">
+                                          </div>
+                                          <div class="col-md-3"></div>
+                                          <div class="col-md-2">
+                                            <button type="submit" class="input-group-btn"
+                                              style="width:100%;height:130%; background-color: #053c6d; border-radius:5%;color: #ffffff">Submit</button>
+                                          </div>
+                                          <div class="col-md-1"></div>
+                                        </div>
+    
+                                   </ng-template>
+                                 
+                                </ngb-tab>
+
+                              </ngb-tabset>
+                            </div>
+                          </div>
+
+
+
+                        </form>
+                      </div>
+                      <!-- eCollection Data -->
+                      <!-- iSurePay Data -->
+                      <div class="border border-secondary"
+                        *ngIf="summaryServiceName == 'iSurePay-Real Time Cheque and Cash Collection Validation' || summaryServiceName == 'iSurePay-Real Time Cheque and Cash Collection Two Level Validation at Client and Bank’s End' ">
+                        <br />
+                        <form class="form-horizontal form-material" [formGroup]="updateProductionDataiSurePay"
+                        (ngSubmit)="productionDetailsiSurePay(updateProductionDataiSurePay.value)">
+                        <div style="margin:1%">
+                          <div class="col-md-6 col-xs-6">
+                            <p class="title"
+                              style="color: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;">
+                              Production Details
+                            </p>
+                          </div>
+                        </div>
+                        <div style="margin:1%" class="row">
+                          <div class="col-md-6 col-xs-6 ">
+                            <i style="color:red">&nbsp;</i>
+                            <input type="text" placeholder="Host" class="inputField form-control form-control-line"
+                            [formControl]="updateProductionDataiSurePay.controls['hostNameProd']"
+                                  formControlName="hostNameProd" />
+                            <br />
+                            <!-- <div>
+                              <p class="error" *ngIf="
+                                             addRegisterData
+                                               .get('hostNameProd')
+                                               .hasError('required') &&
+                                             addRegisterData.get('hostNameProd').touched
+                                           ">
+                                <span class="glyphicon glyphicon-alert"></span>Please enter Host Name
+                              </p>
+                            </div> -->
+                            <!-- <div>
+                              <p class="error" *ngIf="
+                                             addRegisterData
+                                               .get('hostNameProd')
+                                               .hasError('pattern')
+                                           ">
+                                <span class="glyphicon glyphicon-alert"></span>Please Enter Valid Host Name
+                              </p>
+                            </div> -->
+                          </div>
+                          <div class="col-md-6 col-xs-6 input-group" style="padding-top:3%;">
+                            <input type="text" placeholder="Production IP"
+                              class="inputField form-control form-control-line" 
+                              [formControl]="updateProductionDataiSurePay.controls['prodIp']"
+                              formControlName="prodIp"/>
+                            <br>
+
+                          </div>
+                          <div class="col-md-6 col-xs-6 "></div>
+                          <div class="col-md-6 col-xs-6 ">
+                            <!-- <div>
+                              <p class="error" *ngIf="
+                                             addRegisterData
+                                               .get('prodIp')
+                                               .hasError('required') &&
+                                             addRegisterData.get('prodIp').touched
+                                           ">
+                                <span class="glyphicon glyphicon-alert"></span>Please enter Product IP
+                              </p>
+                            </div>
+                            <div>
+                              <p class="error" *ngIf="
+                                             addRegisterData
+                                               .get('prodIp')
+                                               .hasError('pattern')
+                                           ">
+                                <span class="glyphicon glyphicon-alert"></span>Please Enter Valid Product IP
+                              </p>
+                            </div> -->
+                          </div>
+                     
+                        </div>
+                        <div></div>
+                        <div style="margin:1%" class="row">
+                          <div class="col-md-6 col-xs-6 ">
+                            <input type="text" placeholder="Production Port"
+                              class="inputField form-control form-control-line" 
+                              [formControl]="updateProductionDataiSurePay.controls['prodPort']"
+                              formControlName="prodPort"/>
+                            <!-- <p class="error" *ngIf="
+                                         addRegisterData
+                                         .get('prodPort')
+                                         .hasError('required') &&
+                                         addRegisterData.get('prodPort').touched
+                                         ">
+                              <span class="glyphicon glyphicon-alert"></span>Production Port is required
+                            </p> -->
+                          </div>
+                          <div class="col-md-6 col-xs-6 ">
+                            <h6 class="secondary-text" style="color:grey">
+                              Note:Preferred port is 443. The series of Port from 8050
+                              to 8150 are not available at bank’s end for white listing
+                            </h6>
+                          </div>
+                        </div>
+                        <div style="margin:1%" class="row">
+                          <div class="col-md-6 col-xs-6">
+                            <select placeholder="Select HTTP Method Type"
+                              class="inputField form-control form-control-line browser-default custom-select"
+                              (change)="methodType($event.target.value)">
+                              <option disabled value="">Select Communication Protocol</option>
+                              <option *ngFor="let data of communicationProtocolArray" value="{{ data.value }}">
+                                {{ data.value }}
+                              </option>
+                            </select>
+
+                          </div>
+                          <div class="input-group col-md-6 col-xs-6">
+                            <input type="text" placeholder="Https certificate"
+                              class="inputField form-control form-control-line" disabled
+                              [formControl]="updateProductionDataiSurePay.controls['httpCertificate']"
+                              formControlName="httpCertificate"
+                               />
+                            <span class="input-group-btn">
+                              <button [disabled]="disableInput" class="btn " (click)="httpsProdUpload1()"
+                                style="width:100%; background-color: #053c6d; color: #ffffff" type="button">
+                                Browse
+                              </button>
+                              <input type="file" id="httpsProdUpload1" (change)="httpsUpload1Uploaded($event)"
+                                style="display:none" />
+                            </span>
+                          </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div style="margin:2%" >
+                          <ngb-tabset class="nav-justified serviceDetailsTabs" style="padding: 0px !important;">
+                              <ngb-tab>
+                                  <ng-template ngbTabTitle>File</ng-template>
+                                  <ng-template ngbTabContent>
+                                     <br />
+                                     <br />
+                                     <div class="input-group">
+                                           <div class="col-md-6">
+                                              <input type="text" placeholder="Service Timeout" class="inputField form-control form-control-line"
+                                              [formControl]="updateProductionDataiSurePay.controls['serviceTimeOutProd1']"
+                                              formControlName="serviceTimeOutProd1">
+                                              <!-- <div>
+                                                 <p
+                                                   class="error"
+                                                   *ngIf="
+                                                     addRegisterData
+                                                       .get('serviceTimeOutProd')
+                                                       .hasError('required') &&
+                                                     addRegisterData.get('serviceTimeOutProd').touched
+                                                   "
+                                                 >
+                                                   <span
+                                                     class="glyphicon glyphicon-alert"
+                                                   ></span>Please enter Timeout
+                                                 </p>
+                                               </div> -->
+                                               <!-- <div>
+                                                 <p
+                                                   class="error"
+                                                   *ngIf="
+                                                     addRegisterData
+                                                       .get('serviceTimeOutProd')
+                                                       .hasError('pattern')
+                                                   "
+                                                 >
+                                                   <span class="glyphicon glyphicon-alert"></span
+                                                   >Please Enter Valid Timeout
+                                                 </p>
+                                               </div> -->
+                                           </div>
+                                           <div  class="col-md-6">
+                                              <input type="text" placeholder="Service URL" class="inputField form-control form-control-line"
+                                              [formControl]="updateProductionDataiSurePay.controls['serviceUrlProd1']"
+                                              formControlName="serviceUrlProd1">
+                                              <!-- <div>
+                                                    <p
+                                                      class="error"
+                                                      *ngIf="
+                                                        addRegisterData
+                                                          .get('serviceURLProd')
+                                                          .hasError('required') &&
+                                                        addRegisterData.get('serviceURLProd').touched
+                                                      "
+                                                    >
+                                                      <span
+                                                        class="glyphicon glyphicon-alert"
+                                                      ></span>Please enter url
+                                                    </p>
+                                                  </div>
+                                                  <div>
+                                                    <p
+                                                      class="error"
+                                                      *ngIf="
+                                                        addRegisterData
+                                                          .get('serviceURLProd')
+                                                          .hasError('pattern')
+                                                      "
+                                                    >
+                                                      <span class="glyphicon glyphicon-alert"></span
+                                                      >Please Enter Valid URL
+                                                    </p>
+                                                  </div> -->
+                                           </div>
+                                        </div>
+                                        <br>
+                                        <!-- abvalidation -->
+                                        <div class="input-group">
+                                              <div class="col-md-6 ">
+                                                 <input type="text" placeholder="Service Name" class="inputField form-control form-control-line"
+                                                 [formControl]="updateProductionDataiSurePay.controls['serviceNameProd1']"
+                                  formControlName="serviceNameProd1">
+                                                 <!-- <div>
+                                                       <p
+                                                         class="error"
+                                                         *ngIf="
+                                                           addRegisterData
+                                                             .get('serviceNameInputProd1')
+                                                             .hasError('required') &&
+                                                           addRegisterData.get('serviceNameInputProd1').touched
+                                                         "
+                                                       >
+                                                         <span
+                                                           class="glyphicon glyphicon-alert"
+                                                         ></span>Please enter Account no
+                                                       </p>
+                                                     </div>
+                                                     <div>
+                                                       <p
+                                                         class="error"
+                                                         *ngIf="
+                                                           addRegisterData
+                                                             .get('serviceNameInputProd1')
+                                                             .hasError('pattern')
+                                                         "
+                                                       >
+                                                         <span class="glyphicon glyphicon-alert"></span
+                                                         >Please Enter Valid Name
+                                                       </p>
+                                                     </div> -->
+                                              </div>
+                                        <div class="col-md-6">
+                                           <div class="input-group">
+                                              <input
+                                                 type="text"
+                                                 placeholder="Validation request/response"
+                                                 class="inputField form-control form-control-line"
+                                                 [formControl]="updateProductionDataiSurePay.controls['prodFile1']"
+                                                 formControlName="prodFile1"
+                                                 />
+                                              <span class="input-group-btn">
+                                              <button
+                                                 class="btn "
+                                                 (click)="prodUpload1()"
+                                                 style="width:100%; background-color: #053c6d; color: #ffffff"
+                                                 type="button"
+                                                 >
+                                              Browse
+                                              </button>
+                                              <!-- abvalidation -->
+                                              <input
+                                                 type="file"
+                                                 accept=".wsdl , .yaml"
+                                                 id="prodUpload1"
+                                                 (change)="
+                                                 prodUpload1Uploaded($event)
+                                                 "
+                                                 style="display:none"
+                                                 />
+                                              </span>
+                                           </div>
+                                        </div>
+                                        </div>
+                                           <br>
+                                          
+                                          
+                                           <!-- abvalidation -->
+                                           <div class="input-group">
+                                            
+                                               <div class="input-group">
+                                                <div class="col-md-6">
+                                                   <input type="text" placeholder="Service Timeout" class="inputField form-control form-control-line"
+                                                   [formControl]="updateProductionDataiSurePay.controls['serviceTimeOutProd2']"
+                                  formControlName="serviceTimeOutProd2" >
+                                                   <!-- <div>
+                                                      <p
+                                                        class="error"
+                                                        *ngIf="
+                                                          addRegisterData
+                                                            .get('serviceTimeOutProd2')
+                                                            .hasError('required') &&
+                                                          addRegisterData.get('serviceTimeOutProd2').touched
+                                                        "
+                                                      >
+                                                        <span
+                                                          class="glyphicon glyphicon-alert"
+                                                        ></span>Please enter Timeout
+                                                      </p>
+                                                    </div>
+                                                    <div>
+                                                      <p
+                                                        class="error"
+                                                        *ngIf="
+                                                          addRegisterData
+                                                            .get('serviceTimeOutProd2')
+                                                            .hasError('pattern')
+                                                        "
+                                                      >
+                                                        <span class="glyphicon glyphicon-alert"></span
+                                                        >Please Enter Valid Timeout
+                                                      </p>
+                                                    </div> -->
+                                                </div>
+                                                <div  class="col-md-6">
+                                                   <input type="text" placeholder="Service URL" class="inputField form-control form-control-line"
+                                                   [formControl]="updateProductionDataiSurePay.controls['serviceUrlProd2']"
+                                  formControlName="serviceUrlProd2"
+                                                   >
+                                                   <!-- <div>
+                                                         <p
+                                                           class="error"
+                                                           *ngIf="
+                                                             addRegisterData
+                                                               .get('serviceURLProd2')
+                                                               .hasError('required') &&
+                                                             addRegisterData.get('serviceURLProd2').touched
+                                                           "
+                                                         >
+                                                           <span
+                                                             class="glyphicon glyphicon-alert"
+                                                           ></span>Please enter url
+                                                         </p>
+                                                       </div>
+                                                       <div>
+                                                         <p
+                                                           class="error"
+                                                           *ngIf="
+                                                             addRegisterData
+                                                               .get('serviceURLProd2')
+                                                               .hasError('pattern')
+                                                           "
+                                                         >
+                                                           <span class="glyphicon glyphicon-alert"></span
+                                                           >Please Enter Valid URL
+                                                         </p>
+                                                       </div> -->
+                                                </div>
+                                             </div>
+                                             <br>
+                                             <br>
+                                            <br>
+                                              <div class="col-md-6 ">
+                                                <input type="text" placeholder="Service Name" class="inputField form-control form-control-line"
+                                                [formControl]="updateProductionDataiSurePay.controls['serviceNameProd2']"
+                                  formControlName="serviceNameProd2">
+                                                <!-- <div>
+                                                      <p
+                                                        class="error"
+                                                        *ngIf="
+                                                          addRegisterData
+                                                            .get('serviceNameInputProd1')
+                                                            .hasError('required') &&
+                                                          addRegisterData.get('serviceNameInputProd1').touched
+                                                        "
+                                                      >
+                                                        <span
+                                                          class="glyphicon glyphicon-alert"
+                                                        ></span>Please enter Account no
+                                                      </p>
+                                                    </div>
+                                                    <div>
+                                                      <p
+                                                        class="error"
+                                                        *ngIf="
+                                                          addRegisterData
+                                                            .get('serviceNameInputProd1')
+                                                            .hasError('pattern')
+                                                        "
+                                                      >
+                                                        <span class="glyphicon glyphicon-alert"></span
+                                                        >Please Enter Valid Name
+                                                      </p>
+                                                    </div> -->
+                                             </div>
+                                              <div class="col-md-6 input-group">
+                                                 <input
+                                                 type="text"
+                                                 placeholder="Receipting request/response"
+                                                 class="inputField form-control form-control-line"
+                                                 [formControl]="updateProductionDataiSurePay.controls['prodFile2']"
+                                                 formControlName="prodFile2"
+                                                 />
+                                              <span class="input-group-btn">
+                                              <button
+                                                 class="btn "
+                                                 (click)="prodUpload2()"
+                                                 style="width:100%; background-color: #053c6d; color: #ffffff"
+                                                 type="button"
+                                                 >
+                                              Browse
+                                              </button>
+                                              <!-- abvalidation -->
+                                              <input
+                                                 type="file"
+                                                 accept=".wsdl , .yaml"
+                                                 id="prodUpload2"
+                                                 (change)="
+                                                 prodUpload2Uploaded($event)
+                                                 "
+                                                 style="display:none"
+                                                 />
+                                              </span>
+                                              </div>
+                                         
+                                           </div>
+                                     
+                                   
+                                     <br />
+                                     <br />
+                                     <div class="form-group row">
+                                        <div class="col-md-6">
+                                        </div>
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-2">
+                                          <button type="submit" class="input-group-btn"
+                                            style="width:100%;height:130%; background-color: #053c6d; border-radius:5%;color: #ffffff">Submit</button>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                      </div>
+                                  </ng-template>
+                               </ngb-tab>
+                         
+                          </ngb-tabset>
+                        </div>
+                      </form> 
+                      </div>
+                      <!-- iSurePay Data -->
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tabset>
+
+          </div>
+        </div>
+      </div>
+      <!-- extra data check -->
+
+
+      <!-- Three tabs ends -->
+    </div>
+  </div>
+</div>
+<hr class="line" />
+<footer class="footer text-right" id="footerCss">
+  <p style="color: black">Â© 2018 ICICI. API Developer</p>
+</footer>
+<!-- <svg> -->

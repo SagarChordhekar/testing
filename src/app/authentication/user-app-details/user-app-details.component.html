@@ -1,0 +1,1213 @@
+
+
+<!-- Body starts here -->
+<ngx-spinner size="medium" color="#f07800" type="ball-spin"></ngx-spinner>
+<div class="card" style="width:100%">
+  <div class="card-body" >
+    <form
+      class="form-horizontal form-material"
+      [formGroup]="updateRegisterData"
+      (ngSubmit)="submitDetails(updateRegisterData.value)"
+    >
+      <!-- Tabset Starts here -->
+      <ngb-tabset
+        type="pills"
+        class="custom-pills nav-justified mainTabset"
+        #t="ngbTabset"
+      >
+      <!-- changes by sanchita  -->
+      <ngb-tab id="serviceDetails" class="mainTabs" title="Service Details">
+          <ng-template ngbTabContent>
+            <div class="card-body">
+              <div *ngIf="productData == 'eCollections'" class="row">
+                <div class="col-md-8 col-xs-6 p-r-25">
+                  <p class="title" style="font-size: 25px">Service Details</p>
+                  <hr class="style-one" />
+                  <br />
+                  <div class="row">
+                    <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                      <label for="webServiceType">Type of Web Service</label>
+                      <input
+                        id="webServiceType"
+                        type="text"
+                        placeholder="Type of Web Service"
+                        class="inputField form-control form-control-line"
+                        formControlName="webServiceType"
+                      />
+                    </div>
+                    <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                      <label for="webServiceType">Type of Web Service</label>
+                      <input
+                        id="webServiceType"
+                        type="text"
+                        placeholder="Type of Web Service"
+                        class="inputField form-control form-control-line"
+                        formControlName="webServiceType"
+                        readonly
+                      />
+                    </div>
+                    <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'false'">
+                      <label for="communicationProtocol"
+                        >Communication Protocol in Prod</label
+                      >
+                      <input
+                        id="communicationProtocol"
+                        type="text"
+                        placeholder="Communication Protocol in Prod"
+                        class="inputField form-control form-control-line"
+                        formControlName="communicationProtocol"
+                      />
+                    </div>
+                    <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'true'">
+                      <label for="communicationProtocol"
+                        >Communication Protocol in Prod</label
+                      >
+                      <input
+                        id="communicationProtocol"
+                        type="text"
+                        placeholder="Communication Protocol in Prod"
+                        class="inputField form-control form-control-line"
+                        formControlName="communicationProtocol"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 col-xs-3">
+                        <label class="p-l-10" for="encryptionMethod"
+                          >Encryption Method :</label>
+                      </div>
+                      <div class="col-md-3 col-xs-3">
+                          {{
+                            this.productToDisplay.products[0].services[0]
+                              .encryptionMethod
+                          }}
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <label class="p-l-10" for="encryptionMethod"
+                              >Checksum Required :</label>
+                          </div>
+                          <div class="col-md-3 col-xs-3">
+                              {{
+                                this.productToDisplay.products[0].services[0]
+                                  .encryptionMethod
+                              }}
+                            </div>    
+                  </div>
+                  <br />
+                  <hr class="style-one" />
+                  <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="UAT Details" id="static-4">
+                      <ng-template ngbPanelContent>
+                        <div class="border border-secondary">
+                          <br />
+                          <div style="margin:1%">
+                            <div class="col-md-6 col-xs-6">
+                              <p class="title" style="font-size: 18px;">
+                                UAT Details
+                              </p>
+                            </div>
+                          </div>
+
+                          <div  class="row">
+                              <div class="col-md-1 col-xs-1"></div>
+
+                              <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                                  <label for="uatUsername">UAT Host Name</label>
+                                  <input
+                                    id="uatUsername"
+                                    type="text"
+                                    placeholder="UAT Host Name"
+                                    class="inputField form-control form-control-line"
+                                    [value]="productToDisplay.products[0].services[0].hostNameUat"
+                                
+                                  />
+                                </div>
+                                <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                                  <label for="uatUsername">UAT Host Name</label>
+                                  <input
+                                    id="uatUsername"
+                                    type="text"
+                                    placeholder="UAT Host Name"
+                                    class="inputField form-control form-control-line"
+                                    [value]="productToDisplay.products[0].services[0].hostNameUat"
+                                  readonly
+                                  />
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+
+                            <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="uatIp">UAT IP</label>
+                              <input
+                                id="uatIp"
+                                type="text"
+                                placeholder="UAT IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="uatIp"
+                              />
+                            </div>
+                            <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="uatIp">UAT IP</label>
+                              <input
+                                id="uatIp"
+                                type="text"
+                                placeholder="UAT IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="uatIp"
+                                readonly
+                              />
+                            </div>
+                            
+                            <div class="col-md-1 col-xs-1"></div>
+
+                          </div>
+                          <br />
+                          <div  class="row">
+                              <div class="col-md-1 col-xs-1"></div>
+
+                              <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                                  <label for="uatPort">UAT Port</label>
+                                  <input
+                                    id="uatPort"
+                                    type="text"
+                                    placeholder="UAT Port"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="uatPort"
+                                  />
+                                </div>
+                                <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                                  <label for="uatPort">UAT Port</label>
+                                  <input
+                                    id="uatPort"
+                                    type="text"
+                                    placeholder="UAT Port"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="uatPort"
+                                    readonly
+                                  />
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+
+                                <div class="col-md-4">
+                                    Note:Preferred port is 443. The series of Port from 8050 to 8150 are not available at bank’s end for white listing
+</div>
+<div class="col-md-1 col-xs-1"></div>
+ 
+                          </div>
+                          <br />
+                          <div  class="row">
+                              <div class="col-md-1 col-xs-1"></div>
+                              <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                                  <label for="communication">Communication Protocol</label>
+                                  <input
+                                    id="communication"
+                                    type="text"
+                                    placeholder="Communication Protocol"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="communicationProtocol"
+                                  />
+                                </div>
+                                <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                                  <label for="communication">Communication Protocol</label>
+                                  <input
+                                    id="communication"
+                                    type="text"
+                                    placeholder="Communication Protocol"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="communicationProtocol"
+                                    readonly
+                                  />
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+
+                                <div class="col-md-4 col-xs-4 mb-sm-4">
+                                    <strong>HTTPS Certificate :</strong>
+</div>
+<div class="col-md-1 col-xs-1"></div>
+           
+                          </div>
+                          <br/>
+                          <div style="margin:2%">
+                            <ngb-tabset
+                              class="serviceDetailsTabs"
+                              style="padding: 0px !important;"
+                            >
+                              <ngb-tab>
+                                <ng-template ngbTabTitle>File</ng-template>
+                                <ng-template ngbTabContent>
+                                  <br />
+                                
+                                  <div class="row">
+                                      <div class="col-md-1"></div>
+                                    <div class="col-md-2">
+                                        <label><strong>Service Time Out : </strong></label>
+                                    </div> 
+                                    <div class="col-md-3">
+                                          <p>
+                                            {{
+                                              productToDisplay.products[0].services[0]
+                                                .serviceTimeOutUAT
+                                            }}
+                                          </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label><strong>Service URL : </strong></label>
+                                    </div> 
+                                    <div class="col-md-2">
+                                          <p>
+                                            {{
+                                              productToDisplay.products[0].services[0]
+                                                .serviceURLUAT
+                                            }}
+                                          </p>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-2">
+                                        <label><strong>Service Name : </strong></label>
+                                    </div> 
+                                    <div class="col-md-3">
+                                          <p>
+                                            {{
+                                              service_name
+                                            }}
+                                          </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label><strong>UAT File : </strong></label>
+                                    </div> 
+                                    <div class="col-md-3">
+                                    <div>
+                                        <p>
+                                          {{
+                                            productToDisplay.products[0].services[0].uatFile1
+                                          }}
+                                        </p>
+                                      </div>
+                                      </div>
+                                    <div class="col-md-1"></div>
+                                 </div>
+                                 
+                                      <br>
+                                      <div class="input-group" *ngIf="serviceName === 'ECollection with Two Level Validation at Bank and Client’s End'">
+                                          <div class="col-md-3" >
+                                              <label>UAT File</label>
+                                          </div> 
+                                          <div class="col-md-8">
+                                                <p>
+                                                  {{
+                                                    productToDisplay.products[0].services[0]
+                                                      .uatFile2
+                                                  }}
+                                                </p>
+                                              </div>
+                                      </div>
+                                    
+                                  <div
+                                    *ngIf="displayTransactionReversal"
+                                  >
+                                  <div class="input-group">
+                                      <div class="col-md-6">
+                                          <input type="text" placeholder="Service Name" class="inputField form-control form-control-line" formControlName="serviceNameInput">
+                                        </div>
+                                    <div class="col-md-6 input-group">
+                                     
+                                      </div>
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="Service Name" class="inputField form-control form-control-line" formControlName="serviceNameInput">
+                                          </div>
+                                      <div class="col-md-6 input-group">
+                                       
+                                          <input
+                                            type="text"
+                                            placeholder="Transaction Reversal"
+                                            class="inputField form-control form-control-line"
+                                            formControlName="uploadTransactionReversal2"
+                                          />
+                                          <span class="input-group-btn">
+                                            <button
+                                              class="btn "
+                                              (click)="uploadTransactionReversal2()"
+                                              style="width:100%; background-color: #053c6d; color: #ffffff"
+                                              type="button"
+                                            >
+                                              Upload
+                                            </button>
+                                            <input
+                                              type="file"
+                                              id="uploadTransactionReversal2"
+                                              (change)="
+                                              uploadTransactionReversal2Event($event)
+                                              "
+                                              style="display:none"
+                                            />
+                                          </span>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <br />
+                                  <br />
+                                </ng-template>
+                              </ngb-tab>
+                              
+                            </ngb-tabset>
+                          </div>
+                        </div>
+                        <br />
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+
+                  <hr class="style-one" />
+                  <br />
+                  <div class="row">
+                    <div class="col-md-6 col-xs-6 mb-sm-4">
+                      <label for="retryAttempts"
+                        >Retry attempts on failure/no response</label>
+                      <select 
+                        id="retryAttempts"
+                        placeholder="Retry attempts on failure/no response"
+                        class="inputField form-control form-control-line browser-default custom-select"
+                        formControlName="retryAttempts"
+                        disabled="readyForProductionFlag"
+                      >
+                        <option disabled value=" {{productToDisplay.products[0].services[0].retryAttempts}}"
+                          >Retry attempts on failure/no response</option
+                        >
+                        <option value="0">0</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="Till EOD at defined interval"
+                          >Till EOD at defined interval</option
+                        >
+                      </select>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                      <label for="actionOnNoRes"
+                        >Action to be taken on no response</label
+                      >
+                      <select
+                        id="actionOnNoRes"
+                        placeholder="Action to be taken on no response"
+                        class="inputField form-control form-control-line browser-default custom-select"
+                        [value]="productToDisplay.products[0].services[0].actionOnNoRes"
+                        disabled="readyForProductionFlag"
+                      >
+                        <option disabled value=""
+                          >Action to be taken on no response</option
+                        >
+                       <option value="NA">NA</option> 
+                        <option value="At eod only">At eod only</option>
+                       
+                      </select>
+                    </div>
+                  </div>
+                  <br />
+                  <hr class="style-one" />
+                  <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="Production Details" id="static-4">
+                      <ng-template ngbPanelContent>
+                        <div class="border border-secondary">
+                          <br />
+                          <div style="margin:1%">
+                            <div class="col-md-6 col-xs-6">
+                              <p class="title" style="font-size: 18px;">
+                                  Production Details
+                              </p>
+                            </div>
+                          </div>
+
+                          <div style="margin:1%" class="row">
+                            <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="uatUsername">Production IP</label>
+                              <input
+                                id="prodIp"
+                                type="text"
+                                placeholder="Production IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodIp"
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="uatUsername">Production IP</label>
+                              <input
+                                id="prodIp"
+                                type="text"
+                                placeholder="Production IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodIp"
+                                readonly
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6"  *ngIf="readyForProductionFlag == 'false'">
+                              <label for="prodUsername">Production Host Name</label>
+                              <input
+                                id="prodUsername"
+                                type="text"
+                                placeholder="Production Host Name"
+                                class="inputField form-control form-control-line"
+                                [value]="productToDisplay.products[0].services[0].hostNameProd"
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="prodUsername">Production Host Name</label>
+                              <input
+                                id="prodUsername"
+                                type="text"
+                                placeholder="Production Host Name"
+                                class="inputField form-control form-control-line"
+                                [value]="productToDisplay.products[0].services[0].hostNameProd"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                          <br />
+                          <div style="margin:1%" class="row">
+                            <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="prodPort">Production Port</label>
+
+                              <input
+                                id="prodPort"
+                                type="text"
+                                placeholder="Production Port"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodPort"
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="prodPort">Production Port</label>
+
+                              <input
+                                id="prodPort"
+                                type="text"
+                                placeholder="Production Port"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodPort"
+                                readonly
+                              />
+                            </div>
+                            <div class="col-md-4 ">
+                                Note:Preferred port is 443. The series of Port from 8050 to 8150 are not available at bank’s end for white listing
+</div>
+                          </div>
+                          <div style="margin:1%" class="row">
+                              <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'false'">
+                                <label for="prodPort">Communication Protocol</label>
+                                <input
+                                  type="text"
+                                  placeholder="Protocol"
+                                  class="inputField form-control form-control-line"
+                                  value="HTTPS"
+                                />
+                              </div> 
+                              <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'true'">
+                                <label for="prodPort">Communication Protocol</label>
+                                <input
+                                  type="text"
+                                  placeholder="Protocol"
+                                  class="inputField form-control form-control-line"
+                                  value="HTTPS"
+                                  readonly
+                                />
+                              </div>          
+                            </div>
+
+                          <br />
+                          <div style="margin:2%">
+                            <ngb-tabset
+                              class="nav-justified serviceDetailsTabs"
+                              style="padding: 0px !important;"
+                            >
+                              <ngb-tab>
+                                <ng-template ngbTabTitle>File</ng-template>
+
+                                <ng-template ngbTabContent>
+                                  <br />
+                                  <br />
+                                  <div class="input-group">
+                                      <div class="col-md-3">
+                                          <label>Production File</label>
+                                      </div> 
+                                      <div class="col-md-8">
+                                            <p>
+                                              {{
+                                                productToDisplay.products[0].services[0]
+                                                  .prodFile1
+                                              }}
+                                            </p>
+                                          </div>
+                                        </div>
+                                  <br>
+                                  <div
+                                  *ngIf="displayTransactionReversal"
+                                >
+                                <div class="input-group">
+                                    <div class="col-md-6 ">
+                                        <input type="text" placeholder="Service Name" class="inputField form-control form-control-line" formControlName="serviceNameInput">
+                                      </div>
+                                  <div class="col-md-6 input-group">
+                                   
+                                      <input
+                                        type="text"
+                                        placeholder="Transaction Reversal"
+                                        class="inputField form-control form-control-line"
+                                        formControlName="prodFile2"
+                                      />
+                                      <span class="input-group-btn">
+                                        <button
+                                          class="btn "
+                                          (click)="prodUpload2()"
+                                          style="width:100%; background-color: #053c6d; color: #ffffff"
+                                          type="button"
+                                        >
+                                          Upload
+                                        </button>
+                                        <input
+                                          type="file"
+                                          id="prodUpload2"
+                                          (change)="
+                                            prodUpload2Uploaded($event)
+                                          "
+                                          style="display:none"
+                                        />
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                                  <br />
+                                  <br />
+                                </ng-template>
+                              </ngb-tab>
+                             
+                              
+                            </ngb-tabset>
+                          </div>
+                          <br />
+                        </div>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+             
+                </div>
+                <div
+                  class="col-md-4 col-xs-6 p-l-20"
+                  style="background: #f1f1f1;"
+                >
+                  <p
+                    class="title"
+                    style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"
+                  >
+                    Selected Product-Feature
+                  </p>
+                  <hr class="style-one" />
+                  <br />
+                  <div style="margin-left:10%" class="row">
+                   
+                   
+                    <!-- <div class="col-md-7 col-xs-6 m-t-10">
+                      <p style="font-size: 16px">{{summaryProductName}}</p>
+                    </div> -->
+                  </div>
+                  <div  class="row">
+              
+                      <p style="font-size: 16px"><strong>Product Name : </strong>{{ productData }}</p>
+                 
+                   
+                  </div>
+                  <hr class="style-one" />
+                  <div class="row">
+                      <strong style="font-size: 16px">Service Name : </strong><p style="font-size: 16px" *ngIf="serviceName">
+                        {{
+                          serviceName.length > 25
+                            ? (serviceName | slice: 0:25) + "..."
+                            : serviceName
+                        }}
+                      </p>
+                    </div>
+                    <hr class="style-one" />
+                </div>
+              </div>
+              <div *ngIf="productData == 'iSurePay'" class="row">
+                <div class="col-md-8 col-xs-6 p-r-25">
+                  <p class="title" style="font-size: 25px">Service Details</p>
+                  <hr class="style-one" />
+                  <br />
+                  <div class="row">
+                    <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                      <label for="webServiceType">Type of Web Service</label>
+                      <input
+                        id="webServiceType"
+                        type="text"
+                        placeholder="Type of Web Service"
+                        class="inputField form-control form-control-line"
+                        formControlName="webServiceType"
+                      />
+                    </div>
+                    <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                      <label for="webServiceType">Type of Web Service</label>
+                      <input
+                        id="webServiceType"
+                        type="text"
+                        placeholder="Type of Web Service"
+                        class="inputField form-control form-control-line"
+                        formControlName="webServiceType"
+                        readonly
+                      />
+                    </div>
+                    <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'false'">
+                      <label for="communicationProtocol"
+                        >Communication Protocol in Prod</label
+                      >
+                      <input
+                        id="communicationProtocol"
+                        type="text"
+                        placeholder="Communication Protocol in Prod"
+                        class="inputField form-control form-control-line"
+                        formControlName="communicationProtocol"
+                      />
+                    </div>
+                    <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'true'">
+                      <label for="communicationProtocol"
+                        >Communication Protocol in Prod</label
+                      >
+                      <input
+                        id="communicationProtocol"
+                        type="text"
+                        placeholder="Communication Protocol in Prod"
+                        class="inputField form-control form-control-line"
+                        formControlName="communicationProtocol"
+                        readonly
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 col-xs-3">
+                        <label class="p-l-10" for="encryptionMethod"
+                          >Encryption Method :</label>
+                      </div>
+                      <div class="col-md-3 col-xs-3">
+                          {{
+                            this.productToDisplay.products[0].services[0]
+                              .encryptionMethod
+                          }}
+                        </div>
+                        <div class="col-md-3 col-xs-3">
+                            <label class="p-l-10" for="encryptionMethod"
+                              >Checksum Required :</label>
+                          </div>
+                          <div class="col-md-3 col-xs-3">
+                              {{
+                                this.productToDisplay.products[0].services[0]
+                                  .encryptionMethod
+                              }}
+                            </div>    
+                  </div>
+                  <br />
+                  <hr class="style-one" />
+                  <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="UAT Details" id="static-4">
+                      <ng-template ngbPanelContent>
+                        <div class="border border-secondary">
+                          <br />
+                          <div style="margin:1%">
+                            <div class="col-md-6 col-xs-6">
+                              <p class="title" style="font-size: 18px;">
+                                UAT Details
+                              </p>
+                            </div>
+                          </div>
+
+                          <div  class="row">
+                              <div class="col-md-1 col-xs-1"></div>
+
+                              <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                                  <label for="uatUsername">UAT Host Name</label>
+                                  <input
+                                    id="uatUsername"
+                                    type="text"
+                                    placeholder="UAT Host Name"
+                                    class="inputField form-control form-control-line"
+                                    [value]="productToDisplay.products[0].services[0].hostNameUat"
+                                
+                                  />
+                                </div>
+                                <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                                  <label for="uatUsername">UAT Host Name</label>
+                                  <input
+                                    id="uatUsername"
+                                    type="text"
+                                    placeholder="UAT Host Name"
+                                    class="inputField form-control form-control-line"
+                                    [value]="productToDisplay.products[0].services[0].hostNameUat"
+                                    readonly
+                                  />
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+
+                            <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="uatIp">UAT IP</label>
+                              <input
+                                id="uatIp"
+                                type="text"
+                                placeholder="UAT IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="uatIp"
+                              />
+                            </div>
+                            <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="uatIp">UAT IP</label>
+                              <input
+                                id="uatIp"
+                                type="text"
+                                placeholder="UAT IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="uatIp"
+                                readonly
+                              />
+                            </div>
+                            
+                            <div class="col-md-1 col-xs-1"></div>
+
+                          </div>
+                          <br />
+                          <div  class="row">
+                              <div class="col-md-1 col-xs-1"></div>
+
+                              <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                                  <label for="uatPort">UAT Port</label>
+                                  <input
+                                    id="uatPort"
+                                    type="text"
+                                    placeholder="UAT Port"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="uatPort"
+                                  />
+                                </div>
+                                <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                                  <label for="uatPort">UAT Port</label>
+                                  <input
+                                    id="uatPort"
+                                    type="text"
+                                    placeholder="UAT Port"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="uatPort"
+                                    readonly
+                                  />
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+
+                                <div class="col-md-4">
+                                    Note:Preferred port is 443. The series of Port from 8050 to 8150 are not available at bank’s end for white listing
+</div>
+<div class="col-md-1 col-xs-1"></div>
+ 
+                          </div>
+                          <br />
+                          <div  class="row">
+                              <div class="col-md-1 col-xs-1"></div>
+                              <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                                  <label for="communication">Communication Protocol</label>
+                                  <input
+                                    id="communication"
+                                    type="text"
+                                    placeholder="Communication Protocol"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="communicationProtocol"
+                                  />
+                                </div>
+                                <div class="col-md-4 col-xs-4 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                                  <label for="communication">Communication Protocol</label>
+                                  <input
+                                    id="communication"
+                                    type="text"
+                                    placeholder="Communication Protocol"
+                                    class="inputField form-control form-control-line"
+                                    formControlName="communicationProtocol"
+                                  />
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+
+                                <div class="col-md-4 col-xs-4 mb-sm-4">
+                                    <strong>HTTPS Certificate :</strong>
+</div>
+<div class="col-md-1 col-xs-1"></div>
+           
+                          </div>
+                          <br/>
+                          <div style="margin:2%">
+                            <ngb-tabset
+                              class="serviceDetailsTabs"
+                              style="padding: 0px !important;"
+                            >
+                              <ngb-tab>
+                                <ng-template ngbTabTitle>File</ng-template>
+                                <ng-template ngbTabContent>
+                                  <br />
+                                
+                                  <div class="row">
+                                      <div class="col-md-1"></div>
+                                    <div class="col-md-2">
+                                        <label><strong>Service Time Out : </strong></label>
+                                    </div> 
+                                    <div class="col-md-3">
+                                          <p>
+                                            {{
+                                              productToDisplay.products[0].services[0]
+                                                .serviceTimeOutUAT
+                                            }}
+                                          </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label><strong>Service URL : </strong></label>
+                                    </div> 
+                                    <div class="col-md-2">
+                                          <p>
+                                            {{
+                                              productToDisplay.products[0].services[0]
+                                                .serviceURLUAT
+                                            }}
+                                          </p>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-2">
+                                        <label><strong>Service Name : </strong></label>
+                                    </div> 
+                                    <div class="col-md-3">
+                                          <p>
+                                            {{
+                                              service_name
+                                            }}
+                                          </p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label><strong>UAT File : </strong></label>
+                                    </div> 
+                                    <div class="col-md-3">
+                                    <div>
+                                        <p>
+                                          {{
+                                            productToDisplay.products[0].services[0].uatFile1
+                                          }}
+                                        </p>
+                                      </div>
+                                      </div>
+                                    <div class="col-md-1"></div>
+                                 </div>
+                                 
+                                      <br>
+                                      <div class="input-group" *ngIf="serviceName === 'ECollection with Two Level Validation at Bank and Client’s End'">
+                                          <div class="col-md-3" >
+                                              <label>UAT File</label>
+                                          </div> 
+                                          <div class="col-md-8">
+                                                <p>
+                                                  {{
+                                                    productToDisplay.products[0].services[0]
+                                                      .uatFile2
+                                                  }}
+                                                </p>
+                                              </div>
+                                      </div>
+                                  <div
+                                    *ngIf="displayTransactionReversal"
+                                  >
+                                  <div class="input-group">
+                                      <div class="col-md-6">
+                                          <input type="text" placeholder="Service Name" class="inputField form-control form-control-line" formControlName="serviceNameInput">
+                                        </div>
+                                    <div class="col-md-6 input-group">
+                                     
+                                      </div>
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="Service Name" class="inputField form-control form-control-line" formControlName="serviceNameInput">
+                                          </div>
+                                      <div class="col-md-6 input-group">
+                                       
+                                          <input
+                                            type="text"
+                                            placeholder="Transaction Reversal"
+                                            class="inputField form-control form-control-line"
+                                            formControlName="uploadTransactionReversal2"
+                                          />
+                                          <span class="input-group-btn">
+                                            <button
+                                              class="btn "
+                                              (click)="uploadTransactionReversal2()"
+                                              style="width:100%; background-color: #053c6d; color: #ffffff"
+                                              type="button"
+                                            >
+                                              Upload
+                                            </button>
+                                            <input
+                                              type="file"
+                                              id="uploadTransactionReversal2"
+                                              (change)="
+                                              uploadTransactionReversal2Event($event)
+                                              "
+                                              style="display:none"
+                                            />
+                                          </span>
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <br />
+                                  <br />
+                                </ng-template>
+                              </ngb-tab>
+                              
+                            </ngb-tabset>
+                          </div>
+                        </div>
+                        <br />
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+
+                  <hr class="style-one" />
+                  <br />
+                  <ngb-accordion #acc="ngbAccordion">
+                    <ngb-panel title="Production Details" id="static-4">
+                      <ng-template ngbPanelContent>
+                        <div class="border border-secondary">
+                          <br />
+                          <div style="margin:1%">
+                            <div class="col-md-6 col-xs-6">
+                              <p class="title" style="font-size: 18px;">
+                                  Production Details
+                              </p>
+                            </div>
+                          </div>
+
+                          <div style="margin:1%" class="row">
+                            <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="uatUsername">Production IP</label>
+                              <input
+                                id="prodIp"
+                                type="text"
+                                placeholder="Production IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodIp"
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6 mb-sm-4" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="uatUsername">Production IP</label>
+                              <input
+                                id="prodIp"
+                                type="text"
+                                placeholder="Production IP"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodIp"
+                                readonly
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="prodUsername">Production Host Name</label>
+                              <input
+                                id="prodUsername"
+                                type="text"
+                                placeholder="Production Host Name"
+                                class="inputField form-control form-control-line"
+                                [value]="productToDisplay.products[0].services[0].hostNameUat"
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="prodUsername">Production Host Name</label>
+                              <input
+                                id="prodUsername"
+                                type="text"
+                                placeholder="Production Host Name"
+                                class="inputField form-control form-control-line"
+                                [value]="productToDisplay.products[0].services[0].hostNameUat"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                          <br />
+                          <div style="margin:1%" class="row">
+                            <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'false'">
+                              <label for="prodPort">Production Port</label>
+
+                              <input
+                                id="prodPort"
+                                type="text"
+                                placeholder="Production Port"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodPort"
+                              />
+                            </div>
+                            <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'true'">
+                              <label for="prodPort">Production Port</label>
+
+                              <input
+                                id="prodPort"
+                                type="text"
+                                placeholder="Production Port"
+                                class="inputField form-control form-control-line"
+                                formControlName="prodPort"
+                                readonly
+                              />
+                            </div>
+                            <div class="col-md-4 ">
+                                Note:Preferred port is 443. The series of Port from 8050 to 8150 are not available at bank’s end for white listing
+</div>
+                          </div>
+                          <div style="margin:1%" class="row">
+                              <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'false'">
+                                <label for="prodPort">Communication Protocol</label>
+                                <input
+                                  type="text"
+                                  placeholder="Protocol"
+                                  class="inputField form-control form-control-line"
+                                  value="HTTPS"
+                                />
+                              </div>     
+                              <div class="col-md-6 col-xs-6 mb-sm-6" *ngIf="readyForProductionFlag == 'true'">
+                                <label for="prodPort">Communication Protocol</label>
+                                <input
+                                  type="text"
+                                  placeholder="Protocol"
+                                  class="inputField form-control form-control-line"
+                                  value="HTTPS"
+                                  readOnly
+                                />
+                              </div>      
+                            </div>
+
+                          <br />
+                          <div style="margin:2%">
+                            <ngb-tabset
+                              class="nav-justified serviceDetailsTabs"
+                              style="padding: 0px !important;"
+                            >
+                              <ngb-tab>
+                                <ng-template ngbTabTitle>File</ng-template>
+
+                                <ng-template ngbTabContent>
+                                  <br />
+                                  <br />
+                                  <div class="input-group">
+                                      <div class="col-md-3">
+                                          <label>Production File</label>
+                                      </div> 
+                                      <div class="col-md-8">
+                                            <p>
+                                              {{
+                                                productToDisplay.products[0].services[0]
+                                                  .prodFile1
+                                              }}
+                                            </p>
+                                          </div>
+                                        </div>
+                                  <br>
+                                  <div
+                                  *ngIf="displayTransactionReversal"
+                                >
+                                <div class="input-group">
+                                    <div class="col-md-6 ">
+                                        <input type="text" placeholder="Service Name" class="inputField form-control form-control-line" formControlName="serviceNameInput">
+                                      </div>
+                                  <div class="col-md-6 input-group">
+                                   
+                                      <input
+                                        type="text"
+                                        placeholder="Transaction Reversal"
+                                        class="inputField form-control form-control-line"
+                                        formControlName="prodFile2"
+                                      />
+                                      <span class="input-group-btn">
+                                        <button
+                                          class="btn "
+                                          (click)="prodUpload2()"
+                                          style="width:100%; background-color: #053c6d; color: #ffffff"
+                                          type="button"
+                                        >
+                                          Upload
+                                        </button>
+                                        <input
+                                          type="file"
+                                          id="prodUpload2"
+                                          (change)="
+                                            prodUpload2Uploaded($event)
+                                          "
+                                          style="display:none"
+                                        />
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                                 <br />
+                                  <br />
+                                </ng-template>
+                              </ngb-tab>
+                             
+                              
+                            </ngb-tabset>
+                          </div>
+                          <br />
+                        </div>
+                      </ng-template>
+                    </ngb-panel>
+                  </ngb-accordion>
+             
+                </div>
+                <div
+                  class="col-md-4 col-xs-6 p-l-20"
+                  style="background: #f1f1f1;"
+                >
+                  <p
+                    class="title"
+                    style="font-size: 25px;font-family: Arial, Helvetica, sans-serif;"
+                  >
+                    Selected Product-Feature
+                  </p>
+                  <hr class="style-one" />
+                  <br />
+                  <div style="margin-left:10%" class="row">
+                   
+                   
+                    <!-- <div class="col-md-7 col-xs-6 m-t-10">
+                      <p style="font-size: 16px">{{summaryProductName}}</p>
+                    </div> -->
+                  </div>
+                  <div  class="row">
+              
+                      <p style="font-size: 16px"><strong>Product Name : </strong>{{ productData }}</p>
+                 
+                   
+                  </div>
+                  <hr class="style-one" />
+                  <div class="row">
+                      <strong style="font-size: 16px">Service Name : </strong><p style="font-size: 16px" *ngIf="serviceName">
+                        {{
+                          serviceName.length > 25
+                            ? (serviceName | slice: 0:25) + "..."
+                            : serviceName
+                        }}
+                      </p>
+                    </div>
+                    <hr class="style-one" />
+                </div>
+              </div>
+          
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </form>
+    <!-- Tabset ends here -->
+  </div>
+</div>
+
+

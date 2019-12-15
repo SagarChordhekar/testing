@@ -1,0 +1,133 @@
+<header
+   class="topbar"
+   [attr.data-navbarbg]="options.navbarbg"
+   style="  background: #ffffff;height:60px;position: fixed;width:100%;"
+   >
+   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+   <nav
+      class="navbar navbar-expand-lg navbar-light bg-white navbar-custom border-bottom"
+      style="background: #f5821f !important;height:60px;"
+      >
+      <img
+         alt="img"
+         src="assets/images/ICICI Bank Logo Orange Bg.png"
+         style="width: 173px;
+         height: 39px;"
+         class="img-fluid "
+         />
+      
+      <button
+         class="navbar-toggler"
+         type="button"
+         (click)="toggleNavbar()"
+         style="justify-content: right;"
+         >
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+         class="collapse navbar-collapse pl-20 "
+         [ngClass]="{ show: navbarOpen }"
+         style="padding-left: 50%;"
+         >
+         <ul class="navbar-nav mr-auto">
+               <!-- <li class="nav-item">
+                     <a 
+                        ><span
+                        class="m-10 "
+                        style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+                        >Create App</span
+                        ></a
+                        >
+                  </li> -->
+            <!-- <li class="nav-item">
+               <a [routerLink]="['']"
+                  ><span
+                  class="m-10"
+                  style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+                  >Home</span
+                  ></a
+                  >
+            </li> -->
+            <li>
+               <a [routerLink]="['/change-password/changePassword']"
+               ><span
+                 class="m-10"
+                 style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+                 >Change Password</span
+               ></a>
+               </li>
+            <li>
+               <a [routerLink]="['']"
+                  ><span
+                  class="m-10 p-r-20"
+                  style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+                  >Logout</span
+                  ></a
+                  >
+            </li>
+         </ul>
+      </div>
+   
+   </nav>
+</header>
+<div class="card">
+   <div class="card-body" style="margin-top: 90px;">
+      <div class="row">
+         <!-- Three tabs -->
+         <div class="col-12">
+            <div class="card">
+               <div class="card-body">
+                  <ngb-tabset
+                     type="pills"
+                     class="custom-pills profileTabset border-bottom"
+                     #tabRef="ngbTabset"
+                     >
+                     <ngb-tab class="profileTabs" title="List of Projects Created">
+                        <ng-template ngbTabContent>
+                           <div class="row" *ngFor="let app of getAppResponse; let i=index;">
+                              <table class="table table-striped table-responsive-md btn-table">
+                                 <thead>
+                                    <tr>
+                                       <th><strong>Sr.</strong></th>
+                                       <th><strong>App Name</strong></th>
+                                       <th><strong>App Version</strong></th>
+                                       <th><strong>Organization Name</strong></th>
+                                       <th><strong>Product Name</strong></th>
+                                       <th><strong>Feature Name</strong></th>
+                                       <th><strong>Status</strong></th>
+                                       <!-- <th><strong>Lifecycle Status</strong></th> -->
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <th scope="row">{{i + 1}}</th>
+                                       <td class="pointer" [routerLink]="['/authentication/Profile']" [queryParams]="{ projectId: app.projectId}">
+                                          <strong>{{app.projectName}}</strong> 
+                                          &nbsp;<span class="badge badge-primary">View</span>
+                                       </td>
+                                       <td>{{app.version}}</td>
+                                       <td>{{app.orgName}}</td>
+                                       <td>{{app.productName}}</td>
+                                       <td>{{serviceName}}</td>
+                                       <td>{{app.status}}</td>
+                                       <!-- <td></td> -->
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                          
+                        </ng-template>
+                     </ngb-tab>
+               </ngb-tabset>
+            </div>
+         </div>
+      </div>
+      <!-- Three tabs ends -->
+   </div>
+</div>
+</div>
+<!-- <hr class="line" /> -->
+<footer class="footer text-right" id="footerCss">
+   <p style="color: black">Â© 2018 ICICI. API Developer</p>
+</footer>
+<!-- <svg> -->

@@ -1,0 +1,285 @@
+<header
+  class="topbar"
+  [attr.data-navbarbg]="options.navbarbg"
+  style=" background: #ffffff;height:60px;position: fixed;width:100%;"
+>
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-white navbar-custom border-bottom"
+    style="background: #f5821f !important;height:60px;"
+  >
+    <!-- <a style="background: white !important;"> -->
+    <img
+      alt="img"
+      src="assets/images/ICICIlogo.png"
+      style="width: 173px;
+      height: 39px;"
+      class="img-fluid "
+    />
+    <!-- </a> -->
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="toggleNavbar()"
+      style="justify-content: right;"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="collapse navbar-collapse pl-20 "
+      [ngClass]="{ show: navbarOpen }"
+      style="padding-left: 55%;"
+    >
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a [routerLink]="['']"
+            ><span
+              class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+              >Home</span
+            ></a
+          >
+          <a [routerLink]="['/change-password/changePassword']"
+            ><span
+              class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+              >Change Password</span
+            ></a
+          >
+        </li>
+        <!-- <li>
+          <a href="#"
+            ><span
+              class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+              >Help</span
+            ></a
+          >
+        </li> -->
+        <li>
+          <a [routerLink]="['']"
+            ><span
+              class="m-10 p-r-20"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+              >Logout</span
+            ></a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="card">
+  <div class="card-body m-t-30">
+    <div class="row">
+      <!-- Profile Photo -->
+      
+      <!-- Profile Photo ends -->
+
+      <!-- Three tabs -->
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <ngb-tabset type="pills" class="custom-pills border-bottom">
+                <ngb-tab class="profileTabs">
+                    <ng-template ngbTabTitle>
+                      <div class="row">
+                        New Requests &nbsp;
+                        <span class="circle">{{ numberOfRequests }}</span>
+                      
+                      </div>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                     
+                      <br />
+                      <div *ngFor="let i of dataOfNewRequests">
+                        <div
+                          class="card border profileCards p-10 box"
+                          style="cursor:pointer;background-color: #f1f1f1;"
+                        >
+                          <div style="margin-left: 1%">
+                            <div class="row">
+                              <span class="col-11" style="font-size: 16px;"
+                                ><b>{{ i.firstName }}</b
+                                ><b class="pl-1">{{ i.lastName }}</b></span
+                              >
+                              <i
+                                class="fa fa-ellipsis-h fa-lg p-t-10"
+                                aria-hidden="true"
+                                style="cursor:pointer"
+                              ></i>
+                            </div>
+    
+                            <div>
+                              <span style="font-size: 16px;">{{
+                                i.organisation
+                              }}</span>
+                            </div>
+                            <div>
+                              <span style="font-size: 16px;">{{
+                                i.bankAccountNumber
+                              }}</span>
+                            </div>
+                            <div class="row">
+                             <div
+                                class="col-md-8"
+                                style="padding-top:5%;padding-left:0%;"
+                              >
+                                <span class="col-md-8" style="padding-top: 10%;">
+                                  <i
+                                    class="fa fa-times-circle"
+                                    style="font-size:18px;color:red"
+                                  ></i
+                                  >Not Approved</span
+                                >
+                              </div>
+                              <div
+                                class="col-md-4"
+                                style="padding-top: 4%; text-align: right;"
+                              >
+                                <!-- [routerLink]="['/authentication/makerDetails']" -->
+                                <button
+                                  class="btn"
+                                  (click)="moreDetails(i)"
+                                  style="width:35%; background-color: #053c6d !important; font-family: Arial, Helvetica, sans-serif !important; color:#ffffff !important;"
+                                >
+                                  More
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <br />
+                        </div>
+                      </div>
+                      <hr />
+                    </ng-template>
+                  </ngb-tab>
+              <ngb-tab>
+                <ng-template ngbTabTitle>Overview</ng-template>
+                <ng-template ngbTabContent>
+                  <p
+                    class="title m-b-10 m-t-10"
+                    style="font-size: 25px;color: #053c6d"
+                  >
+                    Recent Approvals
+                  </p>
+                  <!-- <div class="row card-group"> -->
+                  <!-- <div class="col-6"> -->
+                  <div class="row">
+                    <div class="card col-6" *ngFor="let i of newData">
+                      <div
+                        class="card-body border box"
+                        style="cursor:pointer;background-color: #f1f1f1;"
+                      >
+                        <div>
+                          <span
+                            ><b>{{ i.firstName }}</b
+                            ><b class="pl-1">{{ i.lastName }}</b></span
+                          >
+                        </div>
+                        <div>
+                          <span
+                            ><b>{{ i.orgName }}</b></span
+                          >
+                        </div>
+
+                        <div class="row">
+                          <span class="col-md-8" style="padding-top: 10%;">
+                            <i
+                              class="fa fa-check-circle"
+                              style="font-size:18px;color:green"
+                            ></i>
+                            Approved</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- </div> -->
+                  <!-- </div> -->
+                  <hr class="line" />
+
+                 
+                </ng-template>
+              </ngb-tab>
+            
+              <ngb-tab class="profileTabs" >
+                  <ng-template ngbTabTitle>
+                      <div class="row">
+                          Production Ready Request &nbsp;
+                        <span class="circle">{{ listOfProductionInitiatedRequest.length }}</span>
+                      
+                      </div>
+                    </ng-template>
+               
+                <ng-template ngbTabContent>
+                  <br />
+                  <div style="margin:1%;">
+                        <i class="fa fa-info"></i> : Click on the card to fill Check list
+                      </div>
+                  <div class="row">
+                      <div class="card col-6" *ngFor="let i of listOfProductionInitiatedRequest">
+                      
+                        <div
+                          class="card-body border box"
+                          style="cursor:pointer;background-color: #f1f1f1;"
+                          >
+                          <div>
+                            <span><strong>Project Name : </strong>{{ i.projectName }}</span>
+                            <br/>
+                            <span><strong>Organisation Name : </strong>{{ i.orgName }}</span>
+                            <br/>
+                            <!-- <div *ngIf="i.status==Ready for Production Request Initiated"> -->
+                            <strong>Status : </strong><b class="pl-1" style="color:green">{{ i.status }}</b>
+                          <!-- </div> -->
+                          </div>
+                          <div class="row">
+                              <div
+                                 class="col-md-8"
+                                 style="padding-top:5%;padding-left:0%;"
+                               >
+                                
+                               </div>
+                               <div
+                                 class="col-md-4"
+                                 style="padding-top: 4%; text-align: right;"
+                               >
+                                 <!-- [routerLink]="['/authentication/makerDetails']" -->
+                                 <button
+                                   class="btn"
+                                   [routerLink]="['/authentication/Checker']" [queryParams]="{ projectId: i.projectId}"
+                                   style="width:35%; background-color: #053c6d !important; font-family: Arial, Helvetica, sans-serif !important; color:#ffffff !important;"
+                                 >
+                                   View
+                                 </button>
+                               </div>
+                             </div>
+                        </div>
+                        
+                      
+                      </div>
+                    </div>
+                  <!-- <app-checker-page></app-checker-page> -->
+                  
+                </ng-template>
+              </ngb-tab>
+              <!-- <ngb-tab [disabled]=checkListTab class="profileTabs" title="Check List for Production">
+                  <ng-template ngbTabContent>
+                       <app-checker-page></app-checker-page>
+                  </ng-template>
+                </ngb-tab> -->
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+      <!-- Three tabs ends -->
+    </div>
+  </div>
+</div>
+<hr class="line" />
+<footer class="footer text-right" id="footerCss">
+  <p style="color: black">Â© 2018 ICICI. API Developer</p>
+</footer>
