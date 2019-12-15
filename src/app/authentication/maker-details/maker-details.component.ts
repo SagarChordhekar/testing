@@ -1,11 +1,10 @@
-
 // import { Component, OnInit } from '@angular/core';
 import { Component, ViewChild, ViewContainerRef, OnInit } from "@angular/core";
 import { NgbTabset } from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, FormGroup, FormArray } from "@angular/forms";
 import { MakerDetailsService } from "./maker-details.service";
 import { config } from "config";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-maker-details",
@@ -14,8 +13,7 @@ import { Router } from "@angular/router";
 })
 export class MakerDetailsComponent implements OnInit {
   private tabSet: NgbTabset;
-  public navbarOpen:boolean;
-
+  public navbarOpen: boolean;
 
   options = {
     theme: "light", // two possible values: light, dark
@@ -39,7 +37,7 @@ export class MakerDetailsComponent implements OnInit {
   valueUsed = [];
   productEmail;
   dataToDisplay;
-  ifscCodes:any;
+  ifscCodes: any;
   dataOfProductToDisplay;
   // productData: any;
   serviceName: any;
@@ -61,8 +59,9 @@ export class MakerDetailsComponent implements OnInit {
     formatCodeIPS: string;
     orgName: string;
     IFSCCode: any;
-    enableTransactionReversalFileProcessing:any;
-    enableEODMISforthisClient:any;
+    enableTransactionReversalFileProcessing: any;
+    enableEODMISforthisClient: any;
+    accountManagerName: any;
   };
   userDetails: any;
   dataOfproject: string;
@@ -74,6 +73,10 @@ export class MakerDetailsComponent implements OnInit {
   productToDisplay;
   eodMIS;
   transReversal: boolean = false;
+  approval: any;
+  serviceDetailsTab: boolean;
+  userDetailsTab: boolean;
+  exp;
   @ViewChild(NgbTabset) set content(content: NgbTabset) {
     this.tabSet = content;
   }
@@ -81,66 +84,71 @@ export class MakerDetailsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private makerDetailsService: MakerDetailsService,
-    private router: Router
+    private router: Router,
+    private _route: ActivatedRoute
   ) {
     this.addRegisterData = this.fb.group({
-    
-  emails: this.fb.array([this.addbusinessEmail()]),
-  appName: [""],
-  appVersion: [""],
-  modeOffered: [""],
-  txnPerday: [""],
-  txnLimit: [""],
-  reqParameter: [""],
-  amountField: [""],
-  ackReciept: [""],
-  firstName: [""],
-  lastName: [""],
-  organization: [""],
-  email: [""],
-  username: [""],
-  phoneNumber: [""],
-  password: [""],
-  confirmPassword: [""],
-  bankAccountNumber: [""],
-  poolAccountNumber: [""],
-  webServiceType: [""],
-  communicationProtocol: [""],
-  httpCertificate: [""],
-  encryptionMethod: [""],
-  uatIp: [""],
-  uatPort: [""],
-  uatSecret: [""],
-  uatUsername: [""],
-  uatPassword: [""],
-  retryAttempts: [""],
-  retryInterval: [""],
-  prodIp: [""],
-  prodUsername: [""],
-  prodPort: [""],
-  prodSecret: [""],
-  prodPassword: [""],
-  messageFormat: [""],
-  uatPayUpdateURL: [""],
-  uatCustValidationURL: [""],
-  uatPaymentStat: [""],
-  // 'checksumReq':[''],
-  livePayUpdateURL: [""],
-  liveCustValidationURL: [""],
-  livePaymentStat: [""],
-  clientCodeProfund: [""],
-  formatCodeProfund: [""],
-  clientCodeIPS: [""],
-  formatCodeIPS: [""],
-  clientcodeProfunds: [""],
-  formatcodeProfunds: [""],
-  ifscCode: [""]
-});
+      // emails: this.fb.array([this.addbusinessEmail()]),
+      appName: [""],
+      appVersion: [""],
+      modeOffered: [""],
+      txnPerday: [""],
+      txnLimit: [""],
+      reqParameter: [""],
+      amountField: [""],
+      ackReciept: [""],
+      firstName: [""],
+      lastName: [""],
+      organization: [""],
+      email: [""],
+      username: [""],
+      phoneNumber: [""],
+      password: [""],
+      confirmPassword: [""],
+      bankAccountNumber: [""],
+      accountManagerName: [""],
+      poolAccountNumber: [""],
+      webServiceType: [""],
+      communicationProtocol: [""],
+      httpCertificate: [""],
+      encryptionMethod: [""],
+      uatIp: [""],
+      uatPort: [""],
+      uatSecret: [""],
+      uatUsername: [""],
+      uatPassword: [""],
+      retryAttempts: [""],
+      retryInterval: [""],
+      prodIp: [""],
+      prodUsername: [""],
+      prodPort: [""],
+      prodSecret: [""],
+      prodPassword: [""],
+      messageFormat: [""],
+      uatPayUpdateURL: [""],
+      uatCustValidationURL: [""],
+      uatPaymentStat: [""],
+      // 'checksumReq':[''],
+      livePayUpdateURL: [""],
+      liveCustValidationURL: [""],
+      livePaymentStat: [""],
+      clientCodeProfund: [""],
+      formatCodeProfund: [""],
+      clientCodeIPS: [""],
+      formatCodeIPS: [""],
+      clientcodeProfunds: [""],
+      formatcodeProfunds: [""],
+      ifscCode: [""]
+    });
   }
 
   ngAfterViewInit() {}
 
   ngOnInit() {
+    this._route.params.subscribe(params => {
+      this.approval = params["approval"];
+    });
+
     this.username = localStorage.getItem("username");
     this.dataOfproject = localStorage.getItem("projectId");
     // console.log("this.projectId", this.dataOfproject);
@@ -210,8 +218,8 @@ export class MakerDetailsComponent implements OnInit {
               .services[0].webServiceType,
             messageFormat: this.dataOfProductToDisplay[0].products[0]
               .services[0].messageFormat,
-            " emails": this.dataOfProductToDisplay[0].products[0].services[0]
-              .emails[0].email,
+            // " emails": this.dataOfProductToDisplay[0].products[0].services[0]
+            //   .emails[0].email,
             encryptionMethod: this.dataOfProductToDisplay[0].products[0]
               .services[0].encryptionMethod,
             uatIp: this.dataOfProductToDisplay[0].products[0].services[0].uatIp,
@@ -269,7 +277,6 @@ export class MakerDetailsComponent implements OnInit {
       });
   }
 
-  
   addbusinessSpocEmail() {
     this.displayAddition = false;
     (<FormArray>this.addRegisterData.get("emails")).push(
@@ -284,32 +291,48 @@ export class MakerDetailsComponent implements OnInit {
   checkBoxvalue2(event) {
     this.transReversal = event.target.checked;
     // console.log("event.target------",this.transReversal);
-
   }
   approveData(value) {
-    console.log("------>>>>>>",value);
-    
-      this.dataOfApproval = {
-        projectId: this.dataToDisplay.projectId,
-        makerApproval: "true",
-        status: "Subscription Request Approved",
-        username: this.dataToDisplay.email,
-        createdBy: this.username,
-        clientCodeProfund: value.clientCodeProfund,
-        formatCodeProfund: value.clientCodeProfund,
-        clientCodeIPS: value.clientCodeIPS,
-        formatCodeIPS: value.clientCodeIPS,
-        IFSCCode:value.ifscCode,
-        orgName: this.dataToDisplay.organisation,
-        enableTransactionReversalFileProcessing:this.transReversal,
-        enableEODMISforthisClient:this.eodMIS
-      };
-    
+    console.log("------>>>>>>", value);
+
+    // this.dataOfApproval = {
+    //   projectId: this.dataToDisplay.projectId,
+    //   makerApproval: "true",
+    //   status: "Subscription Request Approved",
+    //   username: this.dataToDisplay.email,
+    //   createdBy: this.username,
+    //   clientCodeProfund: value.clientCodeProfund,
+    //   formatCodeProfund: value.clientCodeProfund,
+    //   clientCodeIPS: value.clientCodeIPS,
+    //   formatCodeIPS: value.clientCodeIPS,
+    //   IFSCCode:value.ifscCode,
+    //   orgName: this.dataToDisplay.organisation,
+    //   enableTransactionReversalFileProcessing:this.transReversal,
+    //   enableEODMISforthisClient:this.eodMIS
+    // };
+
+    this.dataOfApproval = {
+      projectId: this.dataToDisplay.projectId,
+      makerApproval: "true",
+      status: "Subscription Request Approved",
+      username: this.dataToDisplay.email,
+      createdBy: this.username,
+      clientCodeProfund: value.clientCodeProfund,
+      formatCodeProfund: value.clientCodeProfund,
+      clientCodeIPS: value.clientCodeIPS,
+      formatCodeIPS: value.clientCodeIPS,
+      // changes by sanchita 14-December
+      accountManagerName: value.accountManagerName,
+      IFSCCode: value.ifscCode,
+      orgName: this.dataToDisplay.organisation,
+      enableTransactionReversalFileProcessing: this.transReversal,
+      enableEODMISforthisClient: this.eodMIS
+    };
 
     // console.log (" this.dataOfApproval = ",  this.dataOfApproval)
     this.makerDetailsService.approveUser(this.dataOfApproval).then(data => {
       // console.log("data", data);
-      this.router.navigate(["/authentication/Maker"]);
+      this.router.navigate(["/authentication/Checker"]);
     });
   }
 
@@ -318,9 +341,7 @@ export class MakerDetailsComponent implements OnInit {
       ifConditionGroupIndex
     );
   }
-  toggleNavbar(){
-    
-  }
+  toggleNavbar() {}
   addbusinessEmail(): FormGroup {
     return this.fb.group({
       email: [""]
@@ -336,12 +357,53 @@ export class MakerDetailsComponent implements OnInit {
   change(value) {
     this.show = value;
   }
-  ifscCode(event){
-    this.ifscCodes=event.target.value;
+  ifscCode(event) {
+    this.ifscCodes = event.target.value;
     // console.log("value-------", this.ifscCodes);
   }
+  // changes by sanchita 14-December-2019
+  backTab(tabName) {
+    // console.log("exp: ", this.exp)
+    if (tabName == "userDetails") {
+      this.userDetails = true;
+      this.serviceDetailsTab = false;
+    } else if (tabName == "serviceDetails") {
+      // this.appDetailsTab = true;
+      this.userDetails = true;
+      this.serviceDetailsTab = false;
+    }
+    this.exp = tabName;
+  }
+  nextTab(tabName) {
+    // console.log("exp: ", this.exp)
+    if (tabName == "userDetails") {
+      // this.appDetailsTab = true;
+      this.userDetailsTab = false;
+    } else if (tabName == "serviceDetails") {
+      // this.appDetailsTab = true;
+      this.userDetailsTab = true;
+      this.serviceDetailsTab = false;
+    }
+    this.exp = tabName;
+  }
+  // changes by sanchita 14-December-2019 ends
   rejectData(value) {
     // console.log("------", this.dataToDisplay);
+    // this.dataOfApproval = {
+    //   projectId: this.dataToDisplay.projectId,
+    //   makerApproval: "false",
+    //   status: "Subscription Request Rejected",
+    //   username: this.dataToDisplay.email,
+    //   createdBy: this.username,
+    //   clientCodeProfund: value.clientCodeProfund,
+    //   formatCodeProfund: "",
+    //   clientCodeIPS: "",
+    //   formatCodeIPS: "",
+    //   IFSCCode: value.ifscCode,
+    //   orgName: this.dataToDisplay.organisation,
+    //   enableTransactionReversalFileProcessing:this.transReversal,
+    //   enableEODMISforthisClient:this.eodMIS
+    // };
     this.dataOfApproval = {
       projectId: this.dataToDisplay.projectId,
       makerApproval: "false",
@@ -351,17 +413,18 @@ export class MakerDetailsComponent implements OnInit {
       clientCodeProfund: value.clientCodeProfund,
       formatCodeProfund: "",
       clientCodeIPS: "",
+      accountManagerName: value.accountManagerName,
       formatCodeIPS: "",
       IFSCCode: value.ifscCode,
       orgName: this.dataToDisplay.organisation,
-      enableTransactionReversalFileProcessing:this.transReversal,
-      enableEODMISforthisClient:this.eodMIS
+      enableTransactionReversalFileProcessing: this.transReversal,
+      enableEODMISforthisClient: this.eodMIS
     };
     // console.log("Reject------", this.dataOfApproval);
 
     this.makerDetailsService.approveUser(this.dataOfApproval).then(data => {
       // console.log("data", data);
-      this.router.navigate(["/authentication/Maker"]);
+      this.router.navigate(["/authentication/Checker"]);
     });
   }
 }

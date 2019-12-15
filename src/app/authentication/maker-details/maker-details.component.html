@@ -11,10 +11,10 @@
   >
     <img
       alt="img"
-      src="assets/images/ICICIlogo.png"
+      src="assets/images/ICICI Bank Logo Orange Bg.png"
       style="width: 173px;
-    height: 39px;"
-      class="img-fluid "
+     height: 39px;"
+      class="img-fluid"
     />
     <button
       class="navbar-toggler"
@@ -31,7 +31,7 @@
       style="padding-left: 55%;"
     >
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a [routerLink]="['']"
             ><span
               class="m-10 p-r-20"
@@ -39,15 +39,16 @@
               >Home</span
             ></a
           >
-        </li>
+        </li> -->
         <li>
           <a [routerLink]="['/change-password/changePassword']"
-          ><span
-            class="m-10"
-            style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
-            >Change Password</span
-          ></a>
-          </li>
+            ><span
+              class="m-10"
+              style="font-size: 16px;font-family: Arial,Helvetica,sans-serif;color:white !important;"
+              >Change Password</span
+            ></a
+          >
+        </li>
         <li>
           <a [routerLink]="['']"
             ><span
@@ -154,37 +155,37 @@
                     </div>
                   </div> -->
                   <div class="row">
-                      <div class="col-md-12">
+                    <div class="col-md-12">
                       <div class="form-group row">
-                      <label class="control-label col-md-4"
-                      ><b>ICICI Bank Current Account Number</b></label
-                      >
-                      <label class="control-label col-md-2"><b>:</b></label>
-                      <div class="col-md-6">
-                      <p>{{ dataToDisplay.bankAccountNumber }}</p>
+                        <label class="control-label col-md-4"
+                          ><b>ICICI Bank Current Account Number</b></label
+                        >
+                        <label class="control-label col-md-2"><b>:</b></label>
+                        <div class="col-md-6">
+                          <p>{{ dataToDisplay.bankAccountNumber }}</p>
+                        </div>
                       </div>
-                      </div>
-                      </div>
-                      <!--/span-->
-                      <div
+                    </div>
+                    <!--/span-->
+                    <div
                       *ngIf="dataToDisplay.poolAccountNumber != ''"
                       class="col-md-12"
-                      >
+                    >
                       <div class="form-group row">
-                      <label class="control-label col-md-4"
-                      ><b>ICICI Intermediary Account Number</b></label
-                      >
-                      <label class="control-label col-md-2"><b>:</b></label>
-                      <div class="col-md-6">
-                      <p>{{ dataToDisplay.poolAccountNumber }}</p>
+                        <label class="control-label col-md-4"
+                          ><b>ICICI Intermediary Account Number</b></label
+                        >
+                        <label class="control-label col-md-2"><b>:</b></label>
+                        <div class="col-md-6">
+                          <p>{{ dataToDisplay.poolAccountNumber }}</p>
+                        </div>
                       </div>
-                      </div>
-                      </div>
-                      <div class="col-md-12">
+                    </div>
+                    <!-- <div class="col-md-12">
                       <div class="form-group row">
                       <label class="control-label col-md-4">
                       <b>
-                      ICICI Account Manager Name
+                          Account Manager/Implementation Team Member Name
                       </b>
                       </label>
                       <label class="control-label col-md-2"><b>:</b></label>
@@ -192,37 +193,76 @@
                       <p>{{ dataToDisplay.accountManagerName}}</p>
                       </div>
                       </div>
-                      </div>
-                      <div class="col-md-12">
+                      </div> -->
+                    <!-- changes by sanchita 14-December-2019 starts-->
+                    <div
+                      class="col-md-12"
+                      *ngIf="dataToDisplay.accountManagerName != ''"
+                    >
                       <div class="form-group row">
-                      <label class="control-label col-md-4">
-                      <b>
-                      ICICI Account Manager Mobile Number
-                      </b>
-                      </label>
-                      <label class="control-label col-md-2"><b>:</b></label>
-                      <div class="col-md-6">
-                      <p>{{ dataToDisplay.mobileNumberAM}}</p>
+                        <label class="control-label col-md-4">
+                          <b>
+                            Account Manager/Implementation Team Member Name
+                          </b>
+                        </label>
+                        <label class="control-label col-md-2"><b>:</b></label>
+                        <div class="col-md-6">
+                          <p>{{ dataToDisplay.accountManagerName }}</p>
+                        </div>
                       </div>
-                      </div>
-                      </div>
-                      <div class="col-md-12">
+                    </div>
+                    <div
+                      class="col-md-12"
+                      *ngIf="dataToDisplay.accountManagerName == ''"
+                    >
                       <div class="form-group row">
-                      <label class="control-label col-md-4">
-                      <b>
-                      ICICI Account Manager Email Id
-                      </b>
-                      </label>
-                      <label class="control-label col-md-2"><b>:</b></label>
-                      <div class="col-md-6">
-                      <p>{{ dataToDisplay.emailIdAM}}</p>
+                        <label class="control-label col-md-4">
+                          <b>
+                            Account Manager/Implementation Team Member Name
+                          </b>
+                        </label>
+                        <label class="control-label col-md-2"><b>:</b></label>
+                        <div class="col-md-6">
+                          <input
+                            type="text"
+                            placeholder="Account Manager (AM)/Implementation (IM) Team Member Name"
+                            class="inputField form-control form-control-line"
+                            formControlName="accountManagerName"
+                          />
+                        </div>
                       </div>
+                    </div>
+                    <!-- changes by sanchita 14-December-2019 ends-->
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label class="control-label col-md-4">
+                          <b>
+                            AM/IM Mobile Number
+                          </b>
+                        </label>
+                        <label class="control-label col-md-2"><b>:</b></label>
+                        <div class="col-md-6">
+                          <p>{{ dataToDisplay.mobileNumberAM }}</p>
+                        </div>
                       </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label class="control-label col-md-4">
+                          <b>
+                            AM/IM Email Id
+                          </b>
+                        </label>
+                        <label class="control-label col-md-2"><b>:</b></label>
+                        <div class="col-md-6">
+                          <p>{{ dataToDisplay.emailIdAM }}</p>
+                        </div>
                       </div>
-                      </div>
+                    </div>
+                  </div>
                   <hr class="style-one" style="margin-top:2%" />
                   <ngb-accordion #acc="ngbAccordion">
-                    <ngb-panel title="Business SPOC Details" id="static-4">
+                    <ngb-panel title="Business Contact Details" id="static-4">
                       <ng-template ngbPanelContent>
                         <!-- <div style="margin:1%">
                           <div class="col-md-6 col-xs-6">
@@ -304,7 +344,7 @@
                     #acc="ngbAccordion"
                     *ngIf="dataToDisplay.have_an_ICICI_account == 'yes'"
                   >
-                    <ngb-panel title="IT SPOC Details" id="static-4">
+                    <ngb-panel title="IT Contact Details" id="static-4">
                       <ng-template ngbPanelContent>
                         <div>
                           <!-- <div style="margin:1%">
@@ -385,6 +425,7 @@
                   </ngb-accordion>
 
                   <hr class="style-one" style="margin-top:2%" />
+                  <!-- changes by sanchita 14-December-2019 starts please check routing in the Back button -->
                   <button
                     class="btn headerButton col-3 m-10 m-l-0"
                     style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
@@ -392,6 +433,15 @@
                   >
                     <span>Next</span>
                   </button>
+                  <button
+                    *ngIf="approval == 'true'"
+                    class="btn headerButton col-3 m-10 m-l-0"
+                    style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                    [routerLink]="['/authentication/Maker']"
+                  >
+                    <span>Back</span>
+                  </button>
+                  <!-- changes by sanchita 14-December-2019 ends -->
                 </div>
                 <div
                   class="col-md-4 col-xs-6 p-l-20"
@@ -432,7 +482,7 @@
                     <div class="col-5 col-md-5 col-xs-5" *ngIf="serviceName">
                       <p style="font-size: 16px">
                         {{
-                          serviceName.length > 25
+                          serviceName?.length > 25
                             ? (serviceName | slice: 0:25) + "..."
                             : serviceName
                         }}
@@ -450,7 +500,7 @@
                     <div class="col-5 col-md-5 col-xs-5">
                       <p style="font-size: 16px" *ngIf="serviceName">
                         {{
-                          serviceName.length > 25
+                          serviceName?.length > 25
                             ? (serviceName | slice: 0:25) + "..."
                             : serviceName
                         }}
@@ -967,9 +1017,12 @@
                     </div>
                   </div>
                   <br />
-                  <hr class="style-one" />
+                  <hr class="style-one" *ngIf="approval == 'false'" />
                   <br />
-                  <ngb-accordion #acc="ngbAccordion">
+                  <ngb-accordion
+                    #acc="ngbAccordion"
+                    *ngIf="approval == 'false'"
+                  >
                     <ngb-panel
                       title="Profund/IPS Backend Configuration"
                       id="static-4"
@@ -991,7 +1044,11 @@
                               >
                             </div>
                           </div> -->
-                          <div *ngIf="serviceName != 'ECollection Intimation'" class="form group row" style="padding-left: 4%;">
+                          <div
+                            *ngIf="serviceName != 'ECollection Intimation'"
+                            class="form group row"
+                            style="padding-left: 4%;"
+                          >
                             <div>
                               <input
                                 id="checkBoxvalue2"
@@ -1026,7 +1083,7 @@
                             </div>
                           </div>
                           <br />
-                          <div  style="margin:1%" class="row">
+                          <div style="margin:1%" class="row">
                             <div class="col-md-12 col-xs-12">
                               <input
                                 id="ipsClientCode"
@@ -1054,22 +1111,36 @@
                       </ng-template>
                     </ngb-panel>
                   </ngb-accordion>
-                  <hr class="style-one" />
-                  <button
-                    type="submit"
-                    class="btn headerButton col-3 m-10 m-l-0"
-                    style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
-                    (click)="approveData(addRegisterData.value)"
-                  >
-                    <span>Approve</span>
-                  </button>
-                  <button
-                    (click)="rejectData()"
-                    class="btn headerButton col-3 m-10 m-l-0"
-                    style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
-                  >
-                    <span>Reject</span>
-                  </button>
+                  <hr class="style-one" *ngIf="approval == 'false'" />
+                  <div *ngIf="approval == 'false'">
+                    <button
+                      type="submit"
+                      class="btn headerButton col-3 m-10 m-l-0"
+                      style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                      (click)="approveData(addRegisterData.value)"
+                    >
+                      <span>Approve</span>
+                    </button>
+                    <button
+                      (click)="rejectData()"
+                      class="btn headerButton col-3 m-10 m-l-0"
+                      style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                    >
+                      <span>Reject</span>
+                    </button>
+                  </div>
+                  <!-- changes by sanchita 14-December-2019 starts-->
+                  <div *ngIf="approval == 'true'">
+                    <button
+                      type="button"
+                      class="btn headerButton col-3 m-10"
+                      style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                      (click)="backTab('userDetails')"
+                    >
+                      <span>Back</span>
+                    </button>
+                  </div>
+                  <!-- changes by sanchita 14-December-2019 ends -->
                 </div>
                 <div
                   class="col-md-4 col-xs-6 p-l-20"
@@ -1106,7 +1177,7 @@
                     <div class="col-5 col-md-5 col-xs-5" *ngIf="serviceName">
                       <p style="font-size: 16px">
                         {{
-                          serviceName.length > 25
+                          serviceName?.length > 25
                             ? (serviceName | slice: 0:25) + "..."
                             : serviceName
                         }}
@@ -1114,7 +1185,7 @@
                     </div>
                   </div>
                   <br />
-                  <hr class="style-one" />
+                  <hr class="style-one" *ngIf="approval == 'false'" />
                 </div>
               </div>
 
@@ -1239,7 +1310,7 @@
                   <hr class="style-one" />
                   <br />
                   <!-- <div class="row"> -->
-                    <!-- <div class="col-md-6">
+                  <!-- <div class="col-md-6">
                       <div class="form-group row">
                         <label class="control-label col-md-5"
                           ><b>Mode Offered</b></label
@@ -1250,7 +1321,7 @@
                         </div>
                       </div>
                     </div>-->
-                 
+
                   <!-- </div> -->
                   <div class="row">
                     <!-- <div class="col-md-6">
@@ -1265,16 +1336,16 @@
                       </div>
                     </div> -->
                     <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="control-label col-md-5"
-                            ><b>Expected Transaction per day</b></label
-                          >
-                          <label class="control-label col-md-1"><b>:</b></label>
-                          <div class="col-md-6">
-                            <p>{{ productToDisplay.products[0].txnPerday }}</p>
-                          </div>
+                      <div class="form-group row">
+                        <label class="control-label col-md-5"
+                          ><b>Expected Transaction per day</b></label
+                        >
+                        <label class="control-label col-md-1"><b>:</b></label>
+                        <div class="col-md-6">
+                          <p>{{ productToDisplay.products[0].txnPerday }}</p>
                         </div>
                       </div>
+                    </div>
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="control-label col-md-5"
@@ -1594,9 +1665,12 @@
                       </div>
                     </div>
                   </div>
-                  <hr class="style-one" />
+                  <hr class="style-one" *ngIf="approval == 'false'" />
                   <br />
-                  <div class="border border-secondary">
+                  <div
+                    class="border border-secondary"
+                    *ngIf="approval == 'false'"
+                  >
                     <div style="margin:1%">
                       <div class="col-md-6 col-xs-6">
                         <p
@@ -1651,22 +1725,36 @@
                     <br />
                   </div>
                   <br />
-                  <hr class="style-one" />
-                  <button
-                    type="submit"
-                    class="btn headerButton col-3 m-10 m-l-0"
-                    style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
-                    (click)="approveData(addRegisterData.value)"
-                  >
-                    <span>Approve</span>
-                  </button>
-                  <button
-                    (click)="rejectData(addRegisterData)"
-                    class="btn headerButton col-3 m-10 m-l-0"
-                    style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
-                  >
-                    <span>Reject</span>
-                  </button>
+                  <hr class="style-one" *ngIf="approval == 'false'" />
+                  <div *ngIf="approval == 'false'">
+                    <button
+                      type="submit"
+                      class="btn headerButton col-3 m-10 m-l-0"
+                      style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                      (click)="approveData(addRegisterData.value)"
+                    >
+                      <span>Approve</span>
+                    </button>
+                    <button
+                      (click)="rejectData(addRegisterData)"
+                      class="btn headerButton col-3 m-10 m-l-0"
+                      style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                    >
+                      <span>Reject</span>
+                    </button>
+                  </div>
+                  <!-- changes by sanchita 14-December-2019 starts-->
+                  <div *ngIf="approval == 'true'">
+                    <button
+                      type="button"
+                      class="btn headerButton col-3 m-10"
+                      style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
+                      (click)="backTab('userDetails')"
+                    >
+                      <span>Back</span>
+                    </button>
+                  </div>
+                  <!-- changes by sanchita 14-December-2019 ends -->
                 </div>
                 <div
                   class="col-md-4 col-xs-6 p-l-20"
@@ -1703,7 +1791,7 @@
                     <div class="col-5 col-md-5 col-xs-5" *ngIf="serviceName">
                       <p style="font-size: 16px">
                         {{
-                          serviceName.length > 25
+                          serviceName?.length > 25
                             ? (serviceName | slice: 0:25) + "..."
                             : serviceName
                         }}

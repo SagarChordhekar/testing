@@ -148,14 +148,14 @@
                 <br />
                 <img
                   src="{{ slide.img }}"
-                  [ngClass]="{ img1: i == 0 }"
+                  [ngClass]="{ img1: i == 0 || i == 2, img3:i==3 }"
                   alt="Random first slide"
                   width="100%"
                 />
                 <div>
                   <br />
                   <br />
-                  <strong style="font-size: 16px;color:#053c6d">
+                  <strong [ngClass]="{text1: i == 0 || i==2, text2:i==3}" style="color:#053c6d">
                     {{ slide.description }}
                   </strong>
                 </div>
@@ -171,7 +171,7 @@
     <div class="card-body p-10">
       <div class="title text-center p-b-20">
         <strong style="font-size: 20px;color:#053c6d !important;">
-          Featured Products
+          Featured Product
         </strong>
       </div>
 

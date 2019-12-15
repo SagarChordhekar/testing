@@ -1,20 +1,20 @@
 <header
   class="topbar"
   [attr.data-navbarbg]="options.navbarbg"
-  style=" background: #ffffff;height:60px;position: fixed;width:100%;"
+  style=" background: #ffffff;height:60px"
 >
   <nav
     class="navbar navbar-expand-lg navbar-light bg-white navbar-custom border-bottom"
     style="background: #f5821f !important;height:60px;"
   >
     <!-- <a style="background: white !important;"> -->
-    <img
+      <img
       alt="img"
-      src="assets/images/ICICIlogo.png"
+      src="assets/images/ICICI Bank Logo Orange Bg.png"
       style="width: 173px;
-      height: 39px;"
-      class="img-fluid "
-    />
+         height: 50px;"
+      class="img-fluid"
+      />
     <!-- </a> -->
 
     <button
@@ -72,7 +72,7 @@
 </header>
 
 <div class="card">
-  <div class="card-body" style="margin-top: 90px;">
+  <div class="card-body m-t-30">
     <div class="row">
       <!-- Profile Photo -->
       
@@ -105,11 +105,11 @@
                                 ><b>{{ i.firstName }}</b
                                 ><b class="pl-1">{{ i.lastName }}</b></span
                               >
-                              <i
+                              <!-- <i
                                 class="fa fa-ellipsis-h fa-lg p-t-10"
                                 aria-hidden="true"
                                 style="cursor:pointer"
-                              ></i>
+                              ></i> -->
                             </div>
     
                             <div>
@@ -129,10 +129,10 @@
                               >
                                 <span class="col-md-8" style="padding-top: 10%;">
                                   <i
-                                    class="fa fa-times-circle"
-                                    style="font-size:18px;color:red"
+                                    class="fa fa-hourglass-start"
+                                    style="font-size:18px;color:#053c6d"
                                   ></i
-                                  >Not Approved</span
+                                  > Awaiting for Approval</span
                                 >
                               </div>
                               <div
@@ -157,7 +157,7 @@
                     </ng-template>
                   </ngb-tab>
               <ngb-tab>
-                <ng-template ngbTabTitle>Overview</ng-template>
+                <ng-template ngbTabTitle>Approved Request</ng-template>
                 <ng-template ngbTabContent>
                   <p
                     class="title m-b-10 m-t-10"
@@ -169,7 +169,7 @@
                   <!-- <div class="col-6"> -->
                   <div class="row">
                     <div class="card col-6" *ngFor="let i of newData">
-                      <div
+                      <div (click)="approvedData(i);"
                         class="card-body border box"
                         style="cursor:pointer;background-color: #f1f1f1;"
                       >
@@ -206,7 +206,7 @@
                 </ng-template>
               </ngb-tab>
             
-              <ngb-tab class="profileTabs" >
+              <!-- <ngb-tab class="profileTabs" >
                   <ng-template ngbTabTitle>
                       <div class="row">
                           Production Ready Request &nbsp;
@@ -232,9 +232,7 @@
                             <br/>
                             <span><strong>Organisation Name : </strong>{{ i.orgName }}</span>
                             <br/>
-                            <!-- <div *ngIf="i.status==Ready for Production Request Initiated"> -->
                             <strong>Status : </strong><b class="pl-1" style="color:green">{{ i.status }}</b>
-                          <!-- </div> -->
                           </div>
                           <div class="row">
                               <div
@@ -247,7 +245,6 @@
                                  class="col-md-4"
                                  style="padding-top: 4%; text-align: right;"
                                >
-                                 <!-- [routerLink]="['/authentication/makerDetails']" -->
                                  <button
                                    class="btn"
                                    [routerLink]="['/authentication/Checker']" [queryParams]="{ projectId: i.projectId}"
@@ -262,10 +259,9 @@
                       
                       </div>
                     </div>
-                  <!-- <app-checker-page></app-checker-page> -->
                   
                 </ng-template>
-              </ngb-tab>
+              </ngb-tab> -->
               <!-- <ngb-tab [disabled]=checkListTab class="profileTabs" title="Check List for Production">
                   <ng-template ngbTabContent>
                        <app-checker-page></app-checker-page>

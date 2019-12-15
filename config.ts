@@ -15,20 +15,20 @@ export var config = {
   // url:"http://icici-server14.13.71.81.159.nip.io/api/",
   // appURL: "http://icici-server14.13.71.81.159.nip.io",
 
-  //Data for Prod
-  //  pageUrl: "https://iciciservernew-production.13.71.81.159.nip.io/",
-  //  url:"https://iciciservernew-production.13.71.81.159.nip.io/api/",
-  //  appURL:"https://iciciservernew-production.13.71.81.159.nip.io",
+  
+  //Data for UAT
+   pageUrl: "https://iciciservernew-production.13.71.81.159.nip.io/",
+   url:"https://iciciservernew-production.13.71.81.159.nip.io/api/",
+   appURL:"https://iciciservernew-production.13.71.81.159.nip.io",
 
   //Data for Prod
   // pageUrl: "https://ixpress.icicibank.com/",
   // url:"https://ixpress.icicibank.com/api/",
   // appURL:"https://ixpress.icicibank.com",
 
-  pageUrl: "http://localhost:4200/",
-  url:"http://localhost:3002/api/",
-  appURL:"http://localhost:3002",
-  
+  // pageUrl: "http://192.168.5.176:4200/",
+  // url:"http://192.168.5.176:3002/api/",
+  // appURL:"http://192.168.5.176:3002",
 
   appName: "Users",
   templateNameYaml: "template.yaml",

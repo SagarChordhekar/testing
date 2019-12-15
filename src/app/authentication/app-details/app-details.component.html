@@ -1,5 +1,4 @@
-<header class="topbar" [attr.data-navbarbg]="options.navbarbg"
-  style="background: #ffffff;height:60px;position: fixed;width:100%;">
+<header class="topbar" [attr.data-navbarbg]="options.navbarbg" style="  background: #ffffff;height:60px;position: fixed;width:100%;">
   <nav class="navbar navbar-expand-lg navbar-light bg-white navbar-custom border-bottom"
     style="background: #f5821f !important;height:60px;">
     <img alt="img" src="assets/images/ICICI Bank Logo Orange Bg.png" style="width: 173px;
@@ -59,7 +58,7 @@
 <div class="card">
   <div class="card-body  m-r-40 m-l-40" style="margin-top:40px">
     <form class="form-horizontal form-material" [formGroup]="addRegisterData"
-      (ngSubmit)="submitDetails(addRegisterData.value)">
+      (ngSubmit)="findInvalidControls(addRegisterData.value)">
       <!-- Tabset Starts here -->
       <ngb-tabset type="pills" [(activeId)]="exp" class="custom-pills nav-justified mainTabset" #t="ngbTabset">
         <ngb-tab id="appDetails" class="mainTabs" title="Products and Features" *ngIf="true" [disabled]="appDetailsTab">
@@ -171,7 +170,7 @@
                   <div class="col-5 col-md-5 col-xs-5">
                     <p style="font-size: 16px">
                       {{
-                        summaryServiceName.length > 25
+                        summaryServiceName?.length > 25
                           ? (summaryServiceName | slice: 0:25) + "..."
                           : summaryServiceName
                       }}
@@ -331,13 +330,12 @@
                               </p>
                             </div>
                             <div>
-                              <p class="error" *ngIf="newerr == true">
+                              <p class="error" *ngIf="
+                                  addRegisterData
+                                    .get('poolAccNo')
+                                    .hasError('MatchAcc')
+                                ">
                                 <span class="glyphicon glyphicon-alert"></span>Both account number should not be same.
-                              </p>
-                            </div>
-                            <div>
-                              <p class="error" *ngIf="newerr == false">
-                                <span class="glyphicon glyphicon-alert"></span>
                               </p>
                             </div>
                           </div>
@@ -358,7 +356,7 @@
                           <!-- abvalidation -->
 
                           <div class="p-t-20 p-r-20 p-l-20 input-group" *ngIf="checkedId == 'bankAccount'">
-                            <input type="text" placeholder="Your ICICI Account Manager (AM) Name"
+                            <input type="text" placeholder="Account Manager (AM) / Implementation(IM) Team Member Name"
                               class="inputField form-control form-control-line" [formControl]="
                                 addRegisterData.controls['accountManagerName']
                               " (click)="accCheck()" formControlName="accountManagerName" />
@@ -371,7 +369,7 @@
                                   addRegisterData.get('accountManagerName')
                                     .touched
                                 ">
-                                <span class="glyphicon glyphicon-alert"></span>Please enter Account Manager(AM) name
+                                <span class="glyphicon glyphicon-alert"></span>Please enter (AM)/(IM) name
                               </p>
                             </div>
                             <div>
@@ -380,8 +378,7 @@
                                     .get('accountManagerName')
                                     .hasError('pattern')
                                 ">
-                                <span class="glyphicon glyphicon-alert"></span>Please Enter Valid Account Manager(AM)
-                                name
+                                <span class="glyphicon glyphicon-alert"></span>Please Enter Valid (AM)/(IM) name
                               </p>
                             </div>
                           </div>
@@ -389,7 +386,7 @@
                           <div class="row p-r-10 p-l-10">
                             <div class="p-b-20 p-r-20 p-l-20 col-md-6 input-group">
                               <input class="inputField form-control form-control-line" type="text"
-                                placeholder="Account Manager Mobile Number" [formControl]="
+                                placeholder="AM / IM Mobile Number" [formControl]="
                                   addRegisterData.controls['mobileNumberAM']
                                 " formControlName="mobileNumberAM" maxlength="10" />
                               <br />
@@ -419,7 +416,7 @@
                             <div class="p-b-20 p-r-20 p-l-20 col-md-6 input-group">
                               <!-- abValidation -->
                               <input class="inputField form-control form-control-line" type="email"
-                                placeholder="Account Manager Email Id " [formControl]="
+                                placeholder="AM / IM Email ID " [formControl]="
                                   addRegisterData.controls['emailIdAM']
                                 " formControlName="emailIdAM" (change)="
                                   acc.toggle('static-1'); acc.toggle('static-2')
@@ -448,7 +445,7 @@
                         </div>
                       </ng-template>
                     </ngb-panel>
-                    <ngb-panel title="Business SPOC Details" id="static-2">
+                    <ngb-panel title="Business Contact Details" id="static-2">
                       <ng-template ngbPanelContent>
                         <!-- abvalidation -->
                         <div class="row">
@@ -577,13 +574,13 @@
                       </ng-template>
                     </ngb-panel>
                     <div *ngIf="checkedId == 'bankAccount'">
-                      <ngb-panel title="IT SPOC Details" id="static-3">
+                      <ngb-panel title="IT Contact Details" id="static-3">
                         <ng-template ngbPanelContent>
                           <div class="row">
                             <!-- abvalidation -->
                             <div class="p-b-20 p-r-20 p-l-20 col-md-6 input-group">
-                              <span style="color:red">*</span><input class="inputField form-control form-control-line"
-                                type="text" placeholder="First Name" [formControl]="
+                              <input class="inputField form-control form-control-line" type="text"
+                                placeholder="First Name" [formControl]="
                                   addRegisterData.controls['firstNameITSpoc']
                                 " formControlName="firstNameITSpoc" />
                               <!-- <span style="color:red">{{firstNameITError}}</span> -->
@@ -609,7 +606,6 @@
                               </div>
                             </div>
                             <div class="p-b-20 p-r-20 p-l-20 col-md-6 input-group">
-                              <span style="color:red">*</span>
                               <input class="inputField form-control form-control-line" type="text"
                                 placeholder="Last Name" [formControl]="
                                   addRegisterData.controls['lastNameITSpoc']
@@ -639,8 +635,8 @@
                           </div>
                           <div class="row ">
                             <div class="p-b-20 p-r-20 p-l-20 col-md-6 input-group">
-                              <span style="color:red">*</span><input class="inputField form-control form-control-line"
-                                type="text" placeholder="Mobile Number" [formControl]="
+                              <input class="inputField form-control form-control-line" type="text"
+                                placeholder="Mobile Number" [formControl]="
                                   addRegisterData.controls['mobileNumberITSpoc']
                                 " formControlName="mobileNumberITSpoc" />
                               <div>
@@ -666,7 +662,6 @@
                             </div>
 
                             <div class="p-b-20 p-r-20 p-l-20 col-md-6 input-group">
-                              <span style="color:red">*</span>
                               <input class="inputField form-control form-control-line" type="text"
                                 placeholder="Email Id" [formControl]="
                                   addRegisterData.controls['emailIdITSpoc']
@@ -880,7 +875,7 @@
                     <div class="col-5 col-md-5 col-xs-5">
                       <p style="font-size: 16px">
                         {{
-                          summaryServiceName.length > 25
+                          summaryServiceName?.length > 25
                             ? (summaryServiceName | slice: 0:25) + "..."
                             : summaryServiceName
                         }}
@@ -1043,7 +1038,7 @@
                           </div>
                           <div style="margin:1%" class="row">
                             <div class="col-md-6 col-xs-6 ">
-                              <i style="color:red">&nbsp;</i>
+                              <span style="color:red">*</span>
                               <input type="text" placeholder="Host Name"
                                 class="inputField form-control form-control-line" [formControl]="
                                   addRegisterData.controls['hostNameUat']
@@ -1145,7 +1140,7 @@
                                 </option>
                               </select>
                             </div>
-                            <div class="input-group col-md-6 col-xs-6">
+                            <div *ngIf="!disableInput" class="input-group col-md-6 col-xs-6">
                               <input type="text" placeholder="Https certificate"
                                 class="inputField form-control form-control-line" formControlName="httpCertificate"
                                 disabled />
@@ -1165,7 +1160,8 @@
                           <div style="margin:2%">
                             <ngb-tabset class="serviceDetailsTabs" style="padding: 0px !important;">
                               <ngb-tab>
-                                <ng-template ngbTabTitle>File</ng-template>
+                                <ng-template ngbTabTitle>Upload Swagger for your API
+                                </ng-template>
                                 <ng-template ngbTabContent>
                                   <br />
                                   <br />
@@ -1269,7 +1265,7 @@
                                       </div>
                                       <!-- abvalidation -->
                                       <div class="col-md-6 input-group">
-                                        <input type="text" placeholder="No File Uploaded"
+                                        <input type="text" placeholder="Upload .yaml File"
                                           class="inputField form-control form-control-line"
                                           formControlName="uatFile1" />
                                         <span class="input-group-btn">
@@ -1783,49 +1779,45 @@
                               </div> -->
                           <div style="margin:1%" class="row">
                             <div class="col-md-6 col-xs-6 ">
-                              <input type="text" placeholder="Production Port"
-                                [formControl]="addRegisterData.controls['prodPort']"
-                                class="inputField form-control form-control-line" formControlName="prodPort" #portNo
-                                (keyup)=portRange(portNo.value) />
+                              <input type="text" placeholder="Production Port" [formControl]="
+                                  addRegisterData.controls['prodPort']
+                                " class="inputField form-control form-control-line" formControlName="prodPort" #portNo
+                                (keyup)="portRange(portNo.value)" />
                               <div>
                                 <p class="error" *ngIf="
-                                                addRegisterData
-                                                  .get('prodPort')
-                                                  .hasError('required') &&
-                                                addRegisterData.get('prodPort').touched
-                                              ">
+                                    addRegisterData
+                                      .get('prodPort')
+                                      .hasError('required') &&
+                                    addRegisterData.get('prodPort').touched
+                                  ">
                                   <span class="glyphicon glyphicon-alert"></span>Please enter Production Port
                                 </p>
                               </div>
                               <div>
                                 <p class="error" *ngIf="
-                                                addRegisterData
-                                                  .get('prodPort')
-                                                  .hasError('pattern')
-                                              ">
+                                    addRegisterData
+                                      .get('prodPort')
+                                      .hasError('pattern')
+                                  ">
                                   <span class="glyphicon glyphicon-alert"></span>Please Enter Valid Production Port
                                 </p>
                               </div>
                               <div>
-                                <p class="error" *ngIf="
-                                           porterr==true
-                                           ">
+                                <p class="error" *ngIf="porterr == true">
                                   <span class="glyphicon glyphicon-alert"></span>This port is Unavailable
                                 </p>
                               </div>
                               <div>
-                                <p class="error" *ngIf="
-                                           porterr==false
-                                           ">
+                                <p class="error" *ngIf="porterr == false">
                                   <span class="glyphicon glyphicon-alert"></span>
                                 </p>
                               </div>
-
                             </div>
                             <div class="col-md-6 col-xs-6 ">
                               <h6 class="secondary-text" style="color:grey">
-                                Note:Preferred port is 443. The series of Port from 8050
-                                to 8150 are not available at bank’s end for white listing
+                                Note:Preferred port is 443. The series of Port
+                                from 8050 to 8150 are not available at bank’s
+                                end for white listing
                               </h6>
                             </div>
                           </div>
@@ -1842,7 +1834,7 @@
                                 </option>
                               </select>
                             </div>
-                            <div class="input-group col-md-6 col-xs-6">
+                            <div *ngIf="!disableInputProd" class="input-group col-md-6 col-xs-6">
                               <input type="text" placeholder="Https certificate"
                                 class="inputField form-control form-control-line" formControlName="httpProdCertificate"
                                 disabled />
@@ -1861,7 +1853,8 @@
                           <div style="margin:2%">
                             <ngb-tabset class="nav-justified serviceDetailsTabs" style="padding: 0px !important;">
                               <ngb-tab>
-                                <ng-template ngbTabTitle>File</ng-template>
+                                <ng-template ngbTabTitle>Upload Swagger for your API
+                                </ng-template>
                                 <ng-template ngbTabContent>
                                   <br />
                                   <div class="input-group">
@@ -1963,7 +1956,7 @@
                                       </div>
                                       <!-- abvalidation -->
                                       <div class="col-md-6 input-group">
-                                        <input type="text" placeholder="No File Uploaded"
+                                        <input type="text" placeholder="Upload .yaml File"
                                           class="inputField form-control form-control-line"
                                           formControlName="prodFile1" />
                                         <span class="input-group-btn">
@@ -2264,7 +2257,7 @@
                     (click)="backTab('userDetails')">
                     <span>Back</span>
                   </button>
-                  <button [disabled]="!addRegisterData.valid" class="btn headerButton col-3 m-10 "
+                  <button data-toggle="modal" data-target="#myModal" class="btn headerButton col-3 m-10 "
                     style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
                     type="submit">
                     <span>Subscribe</span>
@@ -2297,7 +2290,7 @@
                     <div class="col-5 col-md-5 col-xs-5">
                       <p style="font-size: 16px">
                         {{
-                          summaryServiceName.length > 25
+                          summaryServiceName?.length > 25
                             ? (summaryServiceName | slice: 0:25) + "..."
                             : summaryServiceName
                         }}
@@ -2425,6 +2418,7 @@
                           <div style="margin:1%" class="row">
                             <div class="col-md-6 col-xs-6 ">
                               <i style="color:red">&nbsp;</i>
+                              <span style="color:red">*</span>
                               <input type="text" placeholder="Host Name"
                                 class="inputField form-control form-control-line" [formControl]="
                                   addRegisterData.controls['hostNameUat']
@@ -2582,7 +2576,7 @@
                                 </option>
                               </select>
                             </div>
-                            <div class="input-group col-md-6 col-xs-6">
+                            <div *ngIf="!disableInput" class="input-group col-md-6 col-xs-6">
                               <input type="text" placeholder="Https certificate"
                                 class="inputField form-control form-control-line" formControlName="httpCertificate"
                                 disabled />
@@ -2601,7 +2595,8 @@
                           <div style="margin:2%">
                             <ngb-tabset class="nav-justified serviceDetailsTabs" style="padding: 0px !important;">
                               <ngb-tab>
-                                <ng-template ngbTabTitle>File</ng-template>
+                                <ng-template ngbTabTitle>Upload Swagger for your API
+                                </ng-template>
                                 <ng-template ngbTabContent>
                                   <br />
                                   <br />
@@ -2984,7 +2979,7 @@
                                 </option>
                               </select>
                             </div>
-                            <div class="input-group col-md-6 col-xs-6">
+                            <div *ngIf="!disableInputProd" class="input-group col-md-6 col-xs-6">
                               <input type="text" placeholder="Https certificate"
                                 class="inputField form-control form-control-line" formControlName="httpProdCertificate"
                                 disabled />
@@ -3003,7 +2998,8 @@
                           <div style="margin:2%">
                             <ngb-tabset class="nav-justified serviceDetailsTabs" style="padding: 0px !important;">
                               <ngb-tab>
-                                <ng-template ngbTabTitle>File</ng-template>
+                                <ng-template ngbTabTitle>Upload Swagger for your API
+                                </ng-template>
                                 <ng-template ngbTabContent>
                                   <br />
                                   <br />
@@ -3284,7 +3280,7 @@
                     (click)="backTab('appDetails')">
                     <span>Back</span>
                   </button>
-                  <button [disabled]="!addRegisterData.valid" class="btn headerButton col-3 m-10 m-l-0"
+                  <button data-toggle="modal" data-target="#myModal" class="btn headerButton col-3 m-10 m-l-0"
                     style="background: #053c6d;font-size: 16px;font-family: Arial, Helvetica, sans-serif;"
                     type="submit">
                     <span>Subscribe</span>
@@ -3316,7 +3312,7 @@
                     <div class="col-5 col-md-5 col-xs-5">
                       <p style="font-size: 16px">
                         {{
-                          summaryServiceName.length > 50
+                          summaryServiceName?.length > 50
                             ? (summaryServiceName | slice: 0:50) + "..."
                             : summaryServiceName
                         }}
@@ -3338,7 +3334,6 @@
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
@@ -3368,9 +3363,17 @@
           <p *ngIf="j == 'uatIp'">UAT IP</p>
           <p *ngIf="j == 'uatPort'">UAT Port</p>
         </div>
+        <h4 *ngIf="invalid?.length == 0">
+          Subscription Submitted Successfully!
+        </h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
+        <button type="button" *ngIf="orgFields?.length > 0 || servFields?.length > 0" class="btn btn-default"
+          data-dismiss="modal">
+          OK
+        </button>
+        <button type="button" *ngIf="invalid?.length == 0" [routerLink]="['']" class="btn btn-default"
+          data-dismiss="modal">
           OK
         </button>
       </div>

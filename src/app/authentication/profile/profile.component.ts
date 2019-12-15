@@ -290,7 +290,7 @@ import {
   {
   "orgName": this.getAuditTrailResponse[t].orgName,
   "projectId": this.getAuditTrailResponse[t].projectId,
-  "status": "Draft Project Created",
+  "status": "Draft App Created",
   "timeStamp": this.getAuditTrailResponse[t].timeStamp
   }
   ]
