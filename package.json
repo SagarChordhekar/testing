@@ -65,7 +65,7 @@
     "ngx-spinner": "^7.2.0",
     "ngx-toastr": "^8.7.3",
     "ngx-tooltip": "0.0.9",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "owl.carousel": "^2.3.4",
     "pace-js": "^1.0.2",
     "quill": "^1.3.6",
