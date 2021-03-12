@@ -45,7 +45,7 @@
     "express": "^4.17.1",
     "express-simple-cdn": "^1.0.1",
     "jquery": "^3.4.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.2.4",
     "karma-html-reporter": "^0.2.7",
     "karma-phantomjs-launcher": "^1.0.4",
